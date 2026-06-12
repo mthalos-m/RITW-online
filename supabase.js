@@ -71,5 +71,43 @@
         return true;
     }
 
-    global.RITWDB = { fetchApprovedProtocols, submitProtocol };
+    /* ---------- comments ---------- */
+    const COMMENTS = SUPABASE_URL + "/rest/v1/comments";
+
+    /* fetch all visible comments for one protocol, oldest first */
+    async function fetchComments(protocolId) {
+        const url = COMMENTS
+            + "?protocol_id=eq." + encodeURIComponent(protocolId)
+            + "&select=*&order=created_at.asc";
+        const res = await fetch(url, { headers: BASE_HEADERS });
+        if (!res.ok) {
+            throw new Error("Supabase comments read failed: " + res.status + " " + (await res.text()));
+        }
+        return res.json();
+    }
+
+    /* post a comment (or a reply, if parentId is given); returns the new row */
+    async function postComment({ protocolId, parentId, author, body }) {
+        const payload = {
+            protocol_id: protocolId,
+            parent_id:   parentId || null,
+            author:      (author || "").trim() || null,
+            body:        body
+        };
+        const res = await fetch(COMMENTS, {
+            method: "POST",
+            headers: { ...BASE_HEADERS, "Prefer": "return=representation" },
+            body: JSON.stringify(payload)
+        });
+        if (!res.ok) {
+            throw new Error("Supabase comment post failed: " + res.status + " " + (await res.text()));
+        }
+        const rows = await res.json();
+        return rows[0];
+    }
+
+    global.RITWDB = {
+        fetchApprovedProtocols, submitProtocol,
+        fetchComments, postComment
+    };
 })(window);

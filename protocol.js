@@ -165,10 +165,15 @@
                 </div>
             </section>` : "" }
 
+            <!-- DISCUSSION -->
+            <section class="detail-section" id="discussion-section"></section>
+
             ${ buildPagination(prev, next) }
         `;
 
         if (hasDiagram) renderInto("diagram-mermaid", fullCode, "main-diagram");
+
+        initDiscussion(protocol.id);
 
         const vtM = document.getElementById("vt-mermaid");
         const vtO = document.getElementById("vt-original");
@@ -280,6 +285,156 @@
                        <small>Next &#8594;</small><strong>${escHtml(next.title)}</strong></a>`
                 : `<span></span>`}
         </nav>`;
+    }
+
+    /* ============================================================
+       discussion (comments)
+       ============================================================ */
+    function initDiscussion(protocolId) {
+        const section = document.getElementById("discussion-section");
+        if (!section) return;
+
+        const canComment = window.RITWDB && typeof window.RITWDB.fetchComments === "function";
+        if (!canComment) {
+            section.innerHTML = `<h2 class="section-title">Discussion</h2>
+                <p class="section-lead">Comments are unavailable right now.</p>`;
+            return;
+        }
+
+        section.innerHTML = `
+            <h2 class="section-title">Discussion <span id="comment-count" class="comment-count"></span></h2>
+            <form class="comment-form" id="comment-form">
+                <input class="comment-author" id="comment-author" type="text" placeholder="Your name (optional)" autocomplete="name">
+                <textarea class="comment-body" id="comment-body" rows="3" placeholder="Add to the discussion…" required></textarea>
+                <div class="comment-form-actions">
+                    <button type="submit" class="btn-primary" id="comment-submit">Post comment</button>
+                </div>
+            </form>
+            <div class="comment-list" id="comment-list">
+                <p class="comment-loading">Loading comments…</p>
+            </div>
+        `;
+
+        const listEl   = section.querySelector("#comment-list");
+        const countEl   = section.querySelector("#comment-count");
+        const form      = section.querySelector("#comment-form");
+        const authorEl  = section.querySelector("#comment-author");
+        const bodyEl    = section.querySelector("#comment-body");
+        const submitBtn = section.querySelector("#comment-submit");
+
+        load();
+
+        async function load() {
+            try {
+                const rows = await window.RITWDB.fetchComments(protocolId);
+                renderComments(rows);
+            } catch (e) {
+                listEl.innerHTML = `<p class="comment-loading">Could not load comments.</p>`;
+                console.warn(e);
+            }
+        }
+
+        function renderComments(rows) {
+            countEl.textContent = rows.length ? `(${rows.length})` : "";
+
+            const tops    = rows.filter(c => !c.parent_id);
+            const repliesOf = id => rows.filter(c => c.parent_id === id);
+
+            if (!tops.length) {
+                listEl.innerHTML = `<p class="comment-empty">No comments yet. Start the conversation.</p>`;
+                return;
+            }
+
+            listEl.innerHTML = tops.map(c => `
+                <div class="comment" data-id="${c.id}">
+                    ${commentInner(c)}
+                    <button class="comment-reply-btn" data-reply="${c.id}">Reply</button>
+                    <div class="comment-replies">
+                        ${repliesOf(c.id).map(r => `<div class="comment reply">${commentInner(r)}</div>`).join("")}
+                    </div>
+                    <div class="reply-form-slot" data-slot="${c.id}"></div>
+                </div>
+            `).join("");
+
+            listEl.querySelectorAll(".comment-reply-btn").forEach(btn => {
+                btn.addEventListener("click", () => openReplyForm(btn.dataset.reply));
+            });
+        }
+
+        function commentInner(c) {
+            const who = c.author ? escHtml(c.author) : "Anonymous";
+            return `
+                <div class="comment-head">
+                    <span class="comment-author-name">${who}</span>
+                    <span class="comment-time">${timeAgo(c.created_at)}</span>
+                </div>
+                <div class="comment-text">${escHtml(c.body).replace(/\n/g, "<br>")}</div>
+            `;
+        }
+
+        function openReplyForm(parentId) {
+            const slot = listEl.querySelector(`.reply-form-slot[data-slot="${parentId}"]`);
+            if (!slot || slot.querySelector("form")) return;     // already open
+            slot.innerHTML = `
+                <form class="comment-form reply-form">
+                    <input class="comment-author" type="text" placeholder="Your name (optional)">
+                    <textarea class="comment-body" rows="2" placeholder="Write a reply…" required></textarea>
+                    <div class="comment-form-actions">
+                        <button type="button" class="btn-secondary reply-cancel">Cancel</button>
+                        <button type="submit" class="btn-primary">Post reply</button>
+                    </div>
+                </form>`;
+            const rForm = slot.querySelector("form");
+            rForm.querySelector(".reply-cancel").addEventListener("click", () => { slot.innerHTML = ""; });
+            rForm.addEventListener("submit", async e => {
+                e.preventDefault();
+                const a = rForm.querySelector(".comment-author").value;
+                const b = rForm.querySelector(".comment-body").value.trim();
+                if (!b) return;
+                const btn = rForm.querySelector('button[type="submit"]');
+                btn.disabled = true; btn.textContent = "Posting…";
+                try {
+                    await window.RITWDB.postComment({ protocolId, parentId, author: a, body: b });
+                    slot.innerHTML = "";
+                    load();
+                } catch (err) {
+                    btn.disabled = false; btn.textContent = "Post reply";
+                    alert("Could not post your reply. Please try again.");
+                }
+            });
+            rForm.querySelector(".comment-body").focus();
+        }
+
+        form.addEventListener("submit", async e => {
+            e.preventDefault();
+            const body = bodyEl.value.trim();
+            if (!body) return;
+            submitBtn.disabled = true;
+            submitBtn.textContent = "Posting…";
+            try {
+                await window.RITWDB.postComment({ protocolId, author: authorEl.value, body });
+                bodyEl.value = "";
+                await load();
+            } catch (err) {
+                alert("Could not post your comment. Please try again.");
+                console.warn(err);
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = "Post comment";
+            }
+        });
+    }
+
+    function timeAgo(iso) {
+        if (!iso) return "";
+        const then = new Date(iso).getTime();
+        const secs = Math.max(1, Math.floor((Date.now() - then) / 1000));
+        const units = [["year",31536000],["month",2592000],["week",604800],["day",86400],["hour",3600],["minute",60]];
+        for (const [name, s] of units) {
+            const v = Math.floor(secs / s);
+            if (v >= 1) return v === 1 ? `1 ${name} ago` : `${v} ${name}s ago`;
+        }
+        return "just now";
     }
 
     function escHtml(str) {

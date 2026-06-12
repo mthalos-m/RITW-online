@@ -944,6 +944,97 @@ body {
     .walk-stage { position: static; min-height: 220px; }
 }
 
+/* ---- discussion / comments ---- */
+.comment-count {
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--muted);
+}
+
+.comment-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    background: var(--card);
+    border: 1px solid var(--rule-light);
+    border-radius: 12px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.comment-author,
+.comment-body {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    padding: 0.6rem 0.8rem;
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    background: rgba(255,255,255,0.7);
+    color: var(--ink);
+}
+.comment-author { max-width: 280px; }
+.comment-body { resize: vertical; min-height: 56px; }
+.comment-author:focus,
+.comment-body:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(143,47,34,0.10);
+}
+
+.comment-form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+}
+.comment-form-actions .btn-primary,
+.comment-form-actions .btn-secondary { padding: 0.5rem 1.1rem; font-size: 0.92rem; }
+
+.comment-list { display: flex; flex-direction: column; gap: 1.1rem; }
+
+.comment-empty,
+.comment-loading {
+    color: var(--muted);
+    font-style: italic;
+}
+
+.comment {
+    border-left: 2px solid var(--rule-light);
+    padding-left: 1rem;
+}
+
+.comment-head {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+    margin-bottom: 0.2rem;
+}
+.comment-author-name { font-weight: 600; color: var(--ink); }
+.comment-time { font-size: 0.8rem; color: var(--muted); }
+.comment-text { color: var(--ink-soft); line-height: 1.55; }
+
+.comment-reply-btn {
+    margin-top: 0.35rem;
+    background: none;
+    border: none;
+    padding: 0;
+    color: var(--accent-dark);
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    cursor: pointer;
+}
+.comment-reply-btn:hover { color: var(--accent); text-decoration: underline; }
+
+.comment-replies {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    margin-top: 0.9rem;
+}
+.comment.reply { border-left-color: var(--accent-border); }
+
+.reply-form-slot:not(:empty) { margin-top: 0.8rem; }
+.reply-form { margin-bottom: 0; }
+
 .detail-pagination {
     display: flex;
     gap: 1rem;
