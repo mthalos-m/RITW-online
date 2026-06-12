@@ -395,57 +395,59 @@
         }
     });
 
-    /* ---------- save to gallery ---------- */
-    document.getElementById("btn-save").addEventListener("click", saveToGallery);
+    /* ---------- submit for review ---------- */
+    const saveBtn = document.getElementById("btn-save");
+    saveBtn.addEventListener("click", submitForReview);
 
-    async function saveToGallery() {
+    async function submitForReview() {
         const title = document.getElementById("w-title").value.trim();
         const code = editor.value.trim();
 
-        if (!title) { showToast("Please add a title before saving."); return; }
-        if (!code) { showToast("Please add a diagram before saving."); return; }
+        if (!title) { showToast("Please add a title before submitting."); return; }
+        if (!code) { showToast("Please add a diagram before submitting."); return; }
 
-        /* ensure latest render */
+        if (!global_RITWDB()) {
+            showToast("Cannot reach the server right now. Please try again later.");
+            return;
+        }
+
+        /* ensure latest render, capture an SVG thumbnail */
         await renderDiagram();
-
         const svg = previewEl.querySelector("svg");
         let imageDataURL = "";
-
-        if (svg) {
-            try {
-                imageDataURL = svgToDataURL(svg);
-            } catch (_) {}
-        }
+        if (svg) { try { imageDataURL = svgToDataURL(svg); } catch (_) {} }
 
         const related = Array.from(relatedSel.selectedOptions).map(o => o.value);
 
-        const id = "user-" + Date.now();
         const proto = {
-            id,
             title,
-            chapter: 0, /* user protocols have no chapter */
-            page: null,
-            image: imageDataURL,
             description: document.getElementById("w-desc").value.trim(),
-            featured: false,
-            body: document.getElementById("w-notes").value.trim(),
             contributor: document.getElementById("w-contributor").value.trim(),
             tags,
             related,
             mermaidCode: code,
-            dateAdded: new Date().toISOString(),
-            userContributed: true,
+            body: document.getElementById("w-notes").value.trim(),
+            image: imageDataURL,
         };
 
+        const original = saveBtn.textContent;
+        saveBtn.disabled = true;
+        saveBtn.textContent = "Submitting…";
+
         try {
-            const stored = JSON.parse(localStorage.getItem("ritw_protocols") || "[]");
-            stored.push(proto);
-            localStorage.setItem("ritw_protocols", JSON.stringify(stored));
-            showToast("Protocol saved — returning to archive…");
-            setTimeout(() => { window.location.href = "index.html"; }, 1600);
+            await window.RITWDB.submitProtocol(proto);
+            showToast("Submitted for review — thank you! Returning to the archive…");
+            setTimeout(() => { window.location.href = "index.html"; }, 1900);
         } catch (e) {
-            showToast("Could not save: storage may be full.");
+            saveBtn.disabled = false;
+            saveBtn.textContent = original;
+            showToast("Submission failed. Please check your connection and try again.");
+            console.error(e);
         }
+    }
+
+    function global_RITWDB() {
+        return window.RITWDB && typeof window.RITWDB.submitProtocol === "function";
     }
 
     /* ---------- download PNG ---------- */

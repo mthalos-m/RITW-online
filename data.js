@@ -786,14 +786,6 @@ const chapters = {
     6: { label: "Chapter VI",  title: "Quorum and Stereotype" }
 };
 
-/* Merge any user-added protocols from localStorage */
-(function mergeLocalProtocols() {
-    try {
-        const stored = JSON.parse(localStorage.getItem("ritw_protocols") || "[]");
-        stored.forEach(p => {
-            if (!protocols.find(existing => existing.id === p.id)) {
-                protocols.push(p);
-            }
-        });
-    } catch (_) {}
-})();
+/* Reader-contributed protocols are loaded asynchronously from Supabase
+   (see supabase.js / RITWDB.fetchApprovedProtocols) by the gallery and
+   detail pages — they are no longer stored in localStorage. */

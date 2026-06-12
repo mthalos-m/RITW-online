@@ -452,6 +452,15 @@
     color: var(--muted);
 }
 
+.submit-note {
+    grid-column: 1 / -1;
+    text-align: right;
+    font-size: 0.85rem;
+    font-style: italic;
+    color: var(--muted);
+    margin: 0.4rem 0 0;
+}
+
 /* ---------- responsive ---------- */
 @media (max-width: 860px) {
     .workshop-body {

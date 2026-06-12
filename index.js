@@ -94,22 +94,28 @@
             ? `<img src="${escHtml(imgSrc)}" alt="${escHtml(protocol.title)}" loading="lazy">`
             : `<div style="height:120px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-style:italic;font-size:0.9rem;">Diagram preview unavailable</div>`;
 
+        const label = protocol.userContributed
+            ? "Reader protocol"
+            : `Protocol ${escHtml(protocol.id)}`;
+
         const meta = protocol.page
             ? `<span class="protocol-page">p.&thinsp;${protocol.page}</span>`
             : (protocol.userContributed ? `<span class="protocol-page contributed">Contributed</span>` : "");
 
+        const footerLeft = protocol.userContributed && protocol.contributor
+            ? `<span class="card-contributor">${escHtml(protocol.contributor)}</span>`
+            : `<span></span>`;
+
         card.innerHTML = `
             <div class="card-top">
-                <span class="protocol-label">Protocol ${escHtml(protocol.id)}</span>
+                <span class="protocol-label">${label}</span>
                 ${meta}
             </div>
             <h2>${escHtml(protocol.title)}</h2>
             <figure class="card-figure">${imgTag}</figure>
             <p class="card-caption">${escHtml(protocol.description || "")}</p>
             <div class="card-footer">
-                ${protocol.userContributed
-                    ? `<button class="card-delete" title="Delete this contributed protocol" aria-label="Delete protocol">&#128465; Delete</button>`
-                    : `<span></span>`}
+                ${footerLeft}
                 <a class="card-link" href="protocol.html?id=${encodeURIComponent(protocol.id)}">
                     View protocol &nbsp;&#8594;
                 </a>
@@ -126,42 +132,15 @@
             });
         }
 
-        const del = card.querySelector(".card-delete");
-        if (del) del.addEventListener("click", e => { e.stopPropagation(); deleteContributed(protocol); });
-
-        /* whole card navigates to the protocol detail page (except the delete button) */
+        /* whole card navigates to the protocol detail page */
         const href = `protocol.html?id=${encodeURIComponent(protocol.id)}`;
         card.style.cursor = "pointer";
         card.addEventListener("click", e => {
-            if (e.target.closest(".card-delete")) return;       // delete handled separately
-            if (e.target.closest("a")) return;                  // let real links work normally
+            if (e.target.closest("a")) return;   // let real links work normally
             window.location.href = href;
         });
 
         return card;
-    }
-
-    /* ---------- delete a contributed protocol ---------- */
-    function deleteContributed(protocol) {
-        const ok = window.confirm(
-            `Delete the contributed protocol “${protocol.title}”?\n\nThis removes it from this browser. This cannot be undone.`
-        );
-        if (!ok) return;
-
-        const i = protocols.findIndex(p => p.id === protocol.id);
-        if (i !== -1) protocols.splice(i, 1);
-
-        try {
-            const stored = JSON.parse(localStorage.getItem("ritw_protocols") || "[]");
-            localStorage.setItem(
-                "ritw_protocols",
-                JSON.stringify(stored.filter(p => p.id !== protocol.id))
-            );
-        } catch (_) {}
-
-        buildChapterNav();
-        render(protocols.filter(p => matches(p, searchInput.value.trim())));
-        showToast(`Deleted “${protocol.title}”.`);
     }
 
     /* ---------- search ---------- */
@@ -194,8 +173,35 @@
             .replace(/>/g, "&gt;").replace(/"/g, "&quot;");
     }
 
+    /* ---------- load approved contributions from Supabase ---------- */
+    async function loadContributions() {
+        if (!window.RITWDB || typeof window.RITWDB.fetchApprovedProtocols !== "function") return;
+        try {
+            const contributed = await window.RITWDB.fetchApprovedProtocols();
+            if (!contributed.length) return;
+
+            let added = 0;
+            contributed.forEach(p => {
+                if (!protocols.find(existing => existing.id === p.id)) {
+                    protocols.push(p);
+                    added++;
+                }
+            });
+
+            if (added) {
+                sortProtocols();
+                buildChapterNav();
+                render(protocols.filter(p => matches(p, searchInput.value.trim())));
+            }
+        } catch (e) {
+            /* offline or backend unavailable — book protocols still show */
+            console.warn("Could not load contributed protocols:", e.message);
+        }
+    }
+
     /* ---------- init ---------- */
     sortProtocols();
     buildChapterNav();
     render(protocols);
+    loadContributions();
 })();
