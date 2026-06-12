@@ -1,8 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "PowerShell(Remove-Item \"C:\\\\Users\\\\mthalos\\\\OneDrive - University of Tennessee\\\\Documents\\\\RITW online\\\\script.js\" -Confirm:$false)",
-      "mcp__Claude_Preview__preview_start"
-    ]
-  }
-}
