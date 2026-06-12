@@ -118,7 +118,6 @@
 
         const img = card.querySelector("img");
         if (img) {
-            img.addEventListener("click", e => { e.preventDefault(); window.open(imgSrc, "_blank"); });
             img.addEventListener("error", () => {
                 img.replaceWith(Object.assign(document.createElement("div"), {
                     textContent: "Diagram preview unavailable",
@@ -128,7 +127,16 @@
         }
 
         const del = card.querySelector(".card-delete");
-        if (del) del.addEventListener("click", () => deleteContributed(protocol));
+        if (del) del.addEventListener("click", e => { e.stopPropagation(); deleteContributed(protocol); });
+
+        /* whole card navigates to the protocol detail page (except the delete button) */
+        const href = `protocol.html?id=${encodeURIComponent(protocol.id)}`;
+        card.style.cursor = "pointer";
+        card.addEventListener("click", e => {
+            if (e.target.closest(".card-delete")) return;       // delete handled separately
+            if (e.target.closest("a")) return;                  // let real links work normally
+            window.location.href = href;
+        });
 
         return card;
     }
