@@ -60,7 +60,39 @@ const protocols = [
         image: "assets/protocols/Figure_1.2_Capgras_inference_abbreviated_schemata.png",
         description: "Abbreviated schemata for the Capgras inference.",
         featured: true,
-        body: ""
+        body: "",
+
+        mermaidHeader: "flowchart TD",
+        mermaidLines: [
+            'A1["Ordinary: α is A (face lookup)"]',
+            'FAM1["Ordinary: feeling of familiarity ☰ (limbic)"]',
+            'MOM1["α is ☰ Mom — recognised"]',
+            'A1 --> MOM1',
+            'FAM1 --> MOM1',
+            'A2["Capgras: α is A (face lookup)"]',
+            'FAM2["Capgras: familiarity signal inhibited"]',
+            'MOM2["α looks exactly like Mom, but isn\'t Mom"]',
+            'A2 --> MOM2',
+            'FAM2 -.->|"output goes nowhere"| MOM2'
+        ],
+        bookText: "A side-by-side comparison of abbreviated schemata for person recognition. In ordinary recognition (left), a face is processed in two places in the brain: the lookup that yields \"α is A\" and the limbic system's feeling of familiarity (the I Ching trigram ☰ is a placeholder for that feeling). When the two outputs are joined, the person recognises Mom. In Capgras (right), the limbic output is inhibited — its output curves back onto itself and goes nowhere — so the reasoning platform is missing a signal. The resulting output: \"this person looks exactly like Mom, but isn't Mom.\"",
+        walkthrough: [
+            {
+                shown: [0, 1, 2, 3, 4],
+                title: "Ordinary recognition",
+                note: "Two independent products are joined: the face-lookup <strong>α is A</strong> and the limbic <em>feeling of familiarity</em> (☰). When both arrive, they combine into recognition — <strong>α is Mom</strong>."
+            },
+            {
+                shown: [0, 1, 2, 3, 4, 5, 7, 8],
+                title: "Capgras: the lookup still works",
+                note: "On the Capgras side the face-lookup is intact: the visual system still computes <strong>α is A</strong>, &lsquo;looks like Mom.&rsquo; Nothing is wrong with recognition of the <em>features</em>."
+            },
+            {
+                shown: [0, 1, 2, 3, 4, 5, 7, 8, 6, 9],
+                title: "But familiarity is inhibited",
+                note: "The limbic familiarity signal is suppressed — its output <em>curves back on itself</em> and never reaches the join. Missing that signal, the platform concludes <strong>looks exactly like Mom, but isn't Mom</strong>. A hardware fault, read by the sufferer as a fact about the world."
+            }
+        ]
     },
     {
         id: "1.3",
@@ -70,7 +102,34 @@ const protocols = [
         image: "assets/protocols/Figure_1.3_Modus_Ponens_explicit_schema.png",
         description: "A schema applying Modus Ponens explicitly within the system.",
         featured: false,
-        body: ""
+        body: "",
+
+        mermaidHeader: "flowchart TD",
+        mermaidLines: [
+            'PQ["P → Q   (semantic memory · assertion)"]',
+            'P["P   (episodic memory · assertion)"]',
+            'Q["Q   (NEW · saved to semantic memory)"]',
+            'PQ --> Q',
+            'P ==>|"inference move"| Q'
+        ],
+        bookText: "The schema applying Modus Ponens in our system in an explicit (conscious) way. The conditional P → Q is held in semantic memory as a standing assertion; the antecedent P arrives as an assertion from episodic memory. The inference move (the bold downward arrow) discharges them into the conclusion Q, which is then saved back to semantic memory as something new.",
+        walkthrough: [
+            {
+                shown: [0],
+                title: "The conditional, already known",
+                note: "The rule <strong>P → Q</strong> sits in <em>semantic memory</em> as a standing assertion — general knowledge the system already holds."
+            },
+            {
+                shown: [0, 1],
+                title: "The antecedent arrives",
+                note: "Now <strong>P</strong> is asserted, freshly, from <em>episodic memory</em> — a particular fact the system has just registered."
+            },
+            {
+                shown: [0, 1, 2, 3, 4],
+                title: "The inference move",
+                note: "The bold arrow is the explicit <em>inference move</em>: rule plus antecedent yield <strong>Q</strong>, which is promoted to semantic memory as something <strong>NEW</strong>. This is Modus Ponens made conscious and procedural."
+            }
+        ]
     },
     {
         id: "1.4",
@@ -216,7 +275,35 @@ const protocols = [
         image: "assets/protocols/Figure_1.7_Flag_planting_in_perception.png",
         description: "A schema for flag planting in perception.",
         featured: false,
-        body: ""
+        body: "",
+
+        mermaidHeader: "flowchart TD",
+        mermaidLines: [
+            'PAT["Pattern / image recognition (cf. Fig 1.8)"]',
+            'EXP["Expectations / predictions (constrain processing)"]',
+            'PER["PERCEPT  [time / place stamp]"]',
+            'PAT --> PER',
+            'EXP --> PER',
+            'PER -->|"FLAG planted"| EM(["episodic memory: new entry, or pointer to existing"])'
+        ],
+        bookText: "Flag planting in perception (e.g. vision). The dotted diagonal in the original figure represents the porous interplay between what is perceived (bottom-up \"pattern/image\" recognition) and what is expected (top-down expectations that condition or constrain processing of the sensory array). Expectations are known to \"fill in\" what might be missing due to insufficient processing time or attention. When a percept settles, a FLAG is planted: a first stop to episodic memory, creating a new entry or a pointer to an existing one. This is what Ramachandran et al. call \"reverberative processing.\"",
+        walkthrough: [
+            {
+                shown: [0, 1],
+                title: "Two streams meet",
+                note: "Perception is an interplay of <strong>bottom-up</strong> pattern recognition and <strong>top-down</strong> expectations. The expectations don't just observe — they <em>constrain</em> processing and fill gaps."
+            },
+            {
+                shown: [0, 1, 2, 3, 4],
+                title: "A percept settles",
+                note: "Where the two streams agree, a <strong>PERCEPT</strong> is fixed and given a <em>time/place stamp</em> — anchoring it to a moment and location."
+            },
+            {
+                shown: [0, 1, 2, 3, 4, 5],
+                title: "Plant the flag",
+                note: "The percept's first stop is <em>episodic memory</em>: a <strong>FLAG is planted</strong>, either creating a new entry or pointing to an existing one — the seed of a remembered experience."
+            }
+        ]
     },
     {
         id: "1.8",
@@ -226,7 +313,36 @@ const protocols = [
         image: "assets/protocols/Figure_1.8_Content_extraction_recognition.png",
         description: "A schema for content extraction or recognition, from vision for example.",
         featured: false,
-        body: ""
+        body: "",
+
+        mermaidHeader: "flowchart TD",
+        mermaidLines: [
+            'VIS["Vision"]',
+            'STORE["Proprietary data format (instances α, β, …)"]',
+            'EXT["Extraction"]',
+            'C["Content C  (e.g. an image, a sound, or \'cat nearby\')"]',
+            'VIS --> STORE',
+            'STORE --> EXT',
+            'EXT --> C'
+        ],
+        bookText: "Content extraction / recognition (from Vision, for example). This figure depicts a process of learning or training. The trapezoid in the original figure indicates an unspecified data format, possibly proprietary to the module (for example, a sensory processing unit), which extracts — indicated by the pyramidal figure — a content C that might be an image or sound, or could be represented propositionally (\"cat nearby\"). This content is not routinely flagged for explicit awareness.",
+        walkthrough: [
+            {
+                shown: [0, 1],
+                title: "Raw input in a proprietary format",
+                note: "Vision feeds a module that stores instances (α, β, …) in its own <em>proprietary data format</em> — not yet anything the rest of the mind can read."
+            },
+            {
+                shown: [0, 1, 2],
+                title: "Extraction",
+                note: "An <strong>extraction</strong> operation distils the stored material — the step that turns formatless input into something usable."
+            },
+            {
+                shown: [0, 1, 2, 3, 4, 5, 6],
+                title: "A content emerges",
+                note: "The output is a <strong>content C</strong> — an image, a sound, or a proposition like &lsquo;cat nearby.&rsquo; Crucially, this content is produced <em>without</em> being routinely flagged for explicit awareness; recognition mostly runs silently."
+            }
+        ]
     },
     {
         id: "1.9",
@@ -236,7 +352,40 @@ const protocols = [
         image: "assets/protocols/Figure_1.9_Perception_reprocessing.png",
         description: "A schema for perception reprocessing on command.",
         featured: false,
-        body: ""
+        body: "",
+
+        mermaidHeader: "flowchart TD",
+        mermaidLines: [
+            'PAT["Pattern / image processing (cf. Fig 1.8)"]',
+            'KF["Known faces (expectations)"]',
+            'JESUS["PERCEPT: ⚑ \'Jesus\' (surprising match)"]',
+            'PH1["Phase 1: Suspend and reprocess (Plan A)"]',
+            'STAMP["⚑ Jesus  [time / place stamp]"]',
+            'PAT --> JESUS',
+            'KF --> JESUS',
+            'JESUS -->|"surprise"| PH1',
+            'PH1 -.->|"reprocess"| PAT',
+            'PH1 -->|"Unresolved?"| STAMP',
+            'STAMP --> EM(["flagged to explicit awareness · episodic memory"])'
+        ],
+        bookText: "Perception reprocessing (on command, in the double take). Pattern recognition runs in tandem with expectations as the constraining process, including known faces. It is surprised by a match to a face marked \"Jesus.\" The surprise results in a supervisory unit intervening with Plan A: a command to suspend and reprocess. When this does not produce a different result, the percept of Jesus is flagged and sent to explicit processing, and possibly also to episodic memory.",
+        walkthrough: [
+            {
+                shown: [0, 1, 2, 5, 6],
+                title: "A surprising percept",
+                note: "Pattern processing, constrained by expectations about <em>known faces</em>, returns a startling match: <strong>⚑ &lsquo;Jesus&rsquo;</strong>. The flag marks it as surprising — not an ordinary recognition."
+            },
+            {
+                shown: [0, 1, 2, 5, 6, 3, 7, 8],
+                title: "Suspend and reprocess (the double take)",
+                note: "Surprise triggers <strong>Plan A</strong> (cf. Fig 1.5): a supervisory unit commands <em>suspend and reprocess</em>, looping back to run the percept again. This is the &lsquo;double take.&rsquo;"
+            },
+            {
+                shown: [0, 1, 2, 5, 6, 3, 7, 8, 4, 9, 10],
+                title: "Still Jesus — so flag it",
+                note: "If reprocessing returns the same result — <em>Unresolved?</em> — the percept is stamped and <strong>flagged to explicit awareness</strong>, and possibly written to episodic memory. The surprise is escalated rather than silently dismissed."
+            }
+        ]
     },
     {
         id: "1.10",
@@ -246,7 +395,35 @@ const protocols = [
         image: "assets/protocols/Figure_1.10_Self_self_concept_in_action.png",
         description: "The Self/self-concept in action.",
         featured: false,
-        body: ""
+        body: "",
+
+        mermaidHeader: "flowchart TD",
+        mermaidLines: [
+            'SELF["The Self (α)"]',
+            'SC(["Self-concept:  Fα"])',
+            'ACT["Self-attribution in action · body image · behaviour"]',
+            'SELF --> SC',
+            'SC --> ACT',
+            'ACT -.->|"may distort reality, for better or worse"| SC'
+        ],
+        bookText: "The Self/self-concept in action. In the book's illustration, a child self-attributes a particular grown-up dress (perhaps that of a parent); a person depicts a body image grossly out of proportion to their actual body; and another sees herself as a lion. A self-concept can represent all manner of distortions to the reality that is yourself, for better or worse. (This figure is a conceptual illustration rather than a step protocol; the diagram below renders its logical core.)",
+        walkthrough: [
+            {
+                shown: [0, 1, 3],
+                title: "The Self forms a self-concept",
+                note: "The Self, <strong>α</strong>, attributes to itself a self-concept <strong>Fα</strong> — &lsquo;I am F.&rsquo; This is not a neutral readout of facts but a self-attribution."
+            },
+            {
+                shown: [0, 1, 3, 2, 4],
+                title: "The self-concept drives action",
+                note: "The self-concept expresses itself in <strong>action, body image, and behaviour</strong> — the child dressing as a parent, the person carrying a distorted body image, the self imagined as a lion."
+            },
+            {
+                shown: [0, 1, 3, 2, 4, 5],
+                title: "And feeds back on reality",
+                note: "Crucially, the loop closes: how one acts <em>reshapes</em> the self-concept in turn. A self-concept can represent &lsquo;all manner of distortions to the reality that is yourself, for better or worse.&rsquo;"
+            }
+        ]
     },
     {
         id: "1.11",
@@ -309,7 +486,37 @@ const protocols = [
         image: "assets/protocols/Figure_1.12_Person_recognition_visual_fusiform_gyrus.png",
         description: "A schema for visual person recognition in the fusiform gyrus.",
         featured: false,
-        body: ""
+        body: "",
+
+        mermaidHeader: "flowchart TD",
+        mermaidLines: [
+            'VIS["Vision"]',
+            'KF["Known faces (database in fusiform gyrus)"]',
+            'FACE["α  [a face]"]',
+            'ID["α is A"]',
+            'VIS --> FACE',
+            'FACE --> ID',
+            'KF -->|"expectations / lookup"| ID',
+            'ID -->|"default move"| PTR(["pointer to A in semantic memory"])'
+        ],
+        bookText: "Person recognition (visual) in the fusiform gyrus. The ordinary case of a known face is similar to every other case of object recognition (cf. Fig 1.7), except that the expectations against which the visual system compares its input are a special database in the fusiform gyrus of the temporal lobe. The default reasoning move is to identify the person or image with the person associated with the known face, and to place a pointer from one to the other.",
+        walkthrough: [
+            {
+                shown: [0, 2, 4],
+                title: "A face arrives",
+                note: "Vision delivers <strong>α</strong>, a face — input to be recognised, no different in kind from any other object recognition."
+            },
+            {
+                shown: [0, 2, 4, 1, 3, 5, 6],
+                title: "Compared against known faces",
+                note: "The twist is <em>where</em> the expectations live: a special database of <strong>known faces in the fusiform gyrus</strong>. Matching against it yields <strong>α is A</strong> — this face is person A."
+            },
+            {
+                shown: [0, 2, 4, 1, 3, 5, 6, 7],
+                title: "Place a pointer",
+                note: "The <em>default move</em> then links the percept to the person: a <strong>pointer to A in semantic memory</strong>, so everything you know about A becomes available."
+            }
+        ]
     },
     {
         id: "1.13",
@@ -319,7 +526,39 @@ const protocols = [
         image: "assets/protocols/Figure_1.13_Person_recognition_special_cases.png",
         description: "Special cases in person recognition.",
         featured: false,
-        body: ""
+        body: "",
+
+        mermaidHeader: "flowchart TD",
+        mermaidLines: [
+            'VIS["Vision"]',
+            'KF["Known faces in fusiform gyrus — best match: Mom"]',
+            'ID["α is A"]',
+            'FAM["PLUS ☰ feeling of familiarity (limbic system)"]',
+            'MOM["α is ☰ Mom"]',
+            'VIS --> ID',
+            'KF --> ID',
+            'ID --> MOM',
+            'FAM -->|"all-clear"| MOM',
+            'MOM --> PTR(["pointer to Mom in semantic memory"])'
+        ],
+        bookText: "Person recognition — special cases (the rich representation of loved ones). Recognition of beloved individuals is high-stakes, and so appropriately attended to with an added step of verification. As in the ordinary case, faces are processed in two places: the temporal lobe (the fusiform-gyrus database of known faces) and the limbic system. When the limbic system gives the all-clear — the feeling of familiarity, the I Ching symbol ☰ attached to the temporal lobe's output — the reasoning platform is licensed to assign the person, identifying α with Mom and placing a pointer in semantic memory.",
+        walkthrough: [
+            {
+                shown: [0, 2, 5],
+                title: "The ordinary lookup",
+                note: "As before, vision plus the fusiform-gyrus database yield <strong>α is A</strong> — the face is identified by its features. For a loved one, that is not yet enough."
+            },
+            {
+                shown: [0, 2, 5, 1, 3, 6, 8],
+                title: "An added check: familiarity",
+                note: "Because recognising loved ones is <em>high-stakes</em>, there is a second channel: the limbic system's <strong>feeling of familiarity</strong> (☰). It must give the <em>all-clear</em> before recognition is licensed."
+            },
+            {
+                shown: [0, 2, 5, 1, 3, 6, 8, 4, 7, 9],
+                title: "All-clear → recognise Mom",
+                note: "With both the lookup <em>and</em> the familiarity signal present, the platform concludes <strong>α is Mom</strong> and places a <strong>pointer to Mom</strong> in semantic memory. Two signals, jointly, unlock the rich recognition of a loved one."
+            }
+        ]
     },
     {
         id: "1.14",
@@ -329,7 +568,39 @@ const protocols = [
         image: "assets/protocols/Figure_1.14_Capgras_conflict_reduction.png",
         description: "Capgras as a surprising case of conflict reduction.",
         featured: true,
-        body: ""
+        body: "",
+
+        mermaidHeader: "flowchart TD",
+        mermaidLines: [
+            'VIS["Vision"]',
+            'KF["Known faces in fusiform gyrus"]',
+            'ID["α is A"]',
+            'FAM["PLUS ☰ familiarity — limbic output inhibited"]',
+            'NOTMOM["α is NOT Mom"]',
+            'VIS --> ID',
+            'KF --> ID',
+            'ID --> NOTMOM',
+            'FAM -.->|"output suppressed; all-clear never arrives"| FAM',
+            'NOTMOM -->|"absence of evidence read as evidence of absence"| CONC(["no pointer: looks like Mom, but isn\'t"])'
+        ],
+        bookText: "Capgras: a surprising case of conflict reduction. In contrast with Figure 1.13, the limbic system and/or its communications with other units have been damaged, preventing it from issuing an output (depicted by the arrow curving back on itself). It fails to produce the all-clear warm signal of the I Ching ☰, and this causes explicit processing to pause. When the all-clear never arrives, the sufferer uses this absence of evidence as evidence of absence — concluding that the person, though identical in appearance, is not the beloved object.",
+        walkthrough: [
+            {
+                shown: [0, 2, 5],
+                title: "The lookup is intact",
+                note: "As in the ordinary case, the face is correctly identified: <strong>α is A</strong>. Capgras is not a failure of feature recognition — the sufferer sees the resemblance perfectly."
+            },
+            {
+                shown: [0, 2, 5, 3, 8],
+                title: "But the all-clear never comes",
+                note: "The limbic familiarity channel is <strong>damaged</strong>: its output curves back on itself and is suppressed. The warm <em>all-clear</em> signal (☰) that Fig 1.13 relied on simply never arrives."
+            },
+            {
+                shown: [0, 2, 5, 3, 8, 1, 6, 4, 7, 9],
+                title: "Absence read as evidence",
+                note: "Here is the surprising move: the sufferer treats the <em>missing</em> familiarity as a positive datum — <strong>absence of evidence as evidence of absence</strong> — and concludes <strong>α is NOT Mom</strong>. A hardware deficit is rationalised into a delusional belief: &lsquo;looks exactly like Mom, but isn't.&rsquo;"
+            }
+        ]
     },
     {
         id: "2.1",
@@ -392,7 +663,34 @@ const protocols = [
         image: "assets/protocols/Figure_4.1_Transfiguration_of_the_personal.png",
         description: "The transfiguration of the personal as a sociological protocol.",
         featured: false,
-        body: ""
+        body: "",
+
+        mermaidHeader: "flowchart TD",
+        mermaidLines: [
+            'STORY["Story Ψ injected into the world (by an artist)"]',
+            'COMMON["Ψ reaches the Common mind (transfigured cultural object)"]',
+            'MINOR(["Ψα — available as a Minor Move in individual reasoning"])',
+            'STORY ==> COMMON',
+            'COMMON ==> MINOR'
+        ],
+        bookText: "The transfiguration of the personal: a sociological protocol. An artist injects a story (or chirp, if you will) Ψ into the world, whereupon an audience actively engages with it, reverberatively. As a result, the scripts and norms associated with it become transfigured, transcending the specifics of the original story, attaining a new status as a cultural object, and ultimately passing into the common mind — there to become available for applications in individual reasoning as a Minor Move (Ψ applied to α).",
+        walkthrough: [
+            {
+                shown: [0],
+                title: "An artist injects a story",
+                note: "It begins with a particular, personal act: an artist releases a story <strong>Ψ</strong> into the world. At this stage it is still one author's specific creation."
+            },
+            {
+                shown: [0, 1, 3],
+                title: "It enters the common mind",
+                note: "An audience engages with it <em>reverberatively</em>; its scripts and norms become <strong>transfigured</strong>, transcending the original specifics and attaining the status of a <em>cultural object</em> lodged in the <strong>common mind</strong>."
+            },
+            {
+                shown: [0, 1, 3, 2, 4],
+                title: "Available as a Minor Move",
+                note: "Now public property, Ψ becomes available to <em>anyone's</em> reasoning: applied to a particular case α, it furnishes a <strong>Minor Move (Ψα)</strong>. The personal has been transfigured into shared inferential material."
+            }
+        ]
     },
     {
         id: "6.1",
@@ -446,7 +744,36 @@ const protocols = [
         image: "assets/protocols/Figure_6.2_Quorum_reasoning_big_data_affair.png",
         description: "Quorum reasoning as a big-data affair.",
         featured: false,
-        body: ""
+        body: "",
+
+        mermaidHeader: "flowchart TD",
+        mermaidLines: [
+            'SUB["Subconscious tabulation of instances"]',
+            'STORE["Proprietary data format (instances α, β, …)"]',
+            'EXT["Statistical query"]',
+            'C["Content C: relative frequency of the feature in the population"]',
+            'SUB --> STORE',
+            'STORE --> EXT',
+            'EXT --> C'
+        ],
+        bookText: "Quorum reasoning is a big-data affair. Quorum reasoning is a recognition process operating semi-autonomously in the background, utilizing statistical algorithms behind the boundaries of attention. As in Figure 1.8, the trapezoid indicates an unspecified data format, possibly proprietary to the module in which the operation proceeds. The operation, when queried, returns a content attesting to the relative frequency of the feature of interest in the relevant population.",
+        walkthrough: [
+            {
+                shown: [0, 1],
+                title: "Quietly counting",
+                note: "Below attention, the mind keeps a running <strong>subconscious tabulation of instances</strong>, stored in a module's own proprietary format. You are accumulating statistics without noticing you do so."
+            },
+            {
+                shown: [0, 1, 2],
+                title: "A statistical query",
+                note: "When something prompts it, a <strong>statistical query</strong> runs over the tally — the same extraction shape as content recognition (Fig 1.8), but operating on frequencies."
+            },
+            {
+                shown: [0, 1, 2, 3, 4, 5, 6],
+                title: "Return a frequency",
+                note: "The output is a <strong>content C</strong> attesting to the <em>relative frequency</em> of the feature across the population — &lsquo;how common is this?&rsquo; — delivered as a felt sense rather than an explicit calculation."
+            }
+        ]
     },
 
 ];
