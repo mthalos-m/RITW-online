@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Protocol Workshop — Reasoning in the Wild</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="workshop.css">
+</head>
+
+<body>
+
+<!-- paper grain -->
+<svg aria-hidden="true" focusable="false" style="position:fixed;inset:0;width:100%;height:100%;z-index:9998;pointer-events:none;opacity:0.035">
+    <filter id="grain">
+        <feTurbulence type="fractalNoise" baseFrequency="0.68" numOctaves="4" stitchTiles="stitch"/>
+        <feColorMatrix type="saturate" values="0"/>
+    </filter>
+    <rect width="100%" height="100%" filter="url(#grain)"/>
+</svg>
+
+<!-- minimal header -->
+<header class="site-header" style="padding-top:2.5rem;padding-bottom:1.6rem;">
+    <p class="header-eyebrow">Protocol Workshop</p>
+    <h1 class="site-title" style="font-size:clamp(1.8rem,4vw,3rem);">
+        <a href="index.html" style="text-decoration:none;color:inherit;"><em>Reasoning in the Wild</em></a>
+    </h1>
+    <p class="site-author">by <span>Mariam Thalos</span></p>
+</header>
+
+<!-- ===== WORKSHOP ===== -->
+<div class="workshop-body">
+
+    <!-- TEMPLATE PICKER -->
+    <div class="template-row">
+        <p class="template-row-label">Start from a structural template</p>
+        <div class="template-scroll" id="template-scroll-structural" role="list">
+            <!-- populated by workshop.js -->
+        </div>
+
+        <p class="template-row-label" style="margin-top:1.1rem;">
+            …or start from a protocol in the book
+        </p>
+        <div class="template-scroll" id="template-scroll-book" role="list">
+            <!-- populated by workshop.js -->
+        </div>
+    </div>
+
+    <!-- LEFT: EDITOR + METADATA -->
+    <div class="editor-panel">
+
+        <!-- diagram editor -->
+        <div class="panel-box">
+            <p class="panel-box-title">Diagram code</p>
+            <textarea
+                id="w-editor"
+                class="code-editor"
+                spellcheck="false"
+                autocomplete="off"
+                aria-label="Mermaid diagram code"
+                placeholder="flowchart TD&#10;    A[&quot;Premise&quot;] --&gt; B[&quot;Conclusion&quot;]"
+            ></textarea>
+            <p class="editor-hint">
+                The preview updates as you type. New to this? Open the quick guide below.
+            </p>
+        </div>
+
+        <!-- syntax guide -->
+        <details class="panel-box guide" id="syntax-guide">
+            <summary class="guide-summary">
+                <span class="guide-icon" aria-hidden="true">?</span>
+                How to write a diagram — a 2-minute guide
+            </summary>
+
+            <div class="guide-body">
+
+                <p class="guide-lead">
+                    A diagram is just a list of <strong>nodes</strong> (boxes) joined by
+                    <strong>arrows</strong>. Every diagram begins with a direction line:
+                </p>
+                <pre class="guide-code">flowchart TD&#9;<span class="guide-comment">&larr; top-to-down</span>
+flowchart LR&#9;<span class="guide-comment">&larr; left-to-right</span></pre>
+
+                <h4 class="guide-h">Making nodes and arrows</h4>
+                <p>Give each node a short label in quotes, and connect them with <code>--&gt;</code>:</p>
+                <pre class="guide-code">flowchart TD
+    A["First idea"] --&gt; B["Second idea"]
+    B --&gt; C["Conclusion"]</pre>
+                <p class="guide-note">
+                    The letters (<code>A</code>, <code>B</code>, <code>C</code>) are just internal
+                    names — they don't appear in the diagram. Re-using a name points back to the
+                    same box.
+                </p>
+
+                <h4 class="guide-h">Branching (one node, several paths)</h4>
+                <p>Point one node at several others. Use a <code>{ }</code> node to mark a question:</p>
+                <pre class="guide-code">flowchart TD
+    A["Observation"] --&gt; Q{"Does it fit?"}
+    Q --&gt;|"Yes"| Y["Keep belief"]
+    Q --&gt;|"No"|  N["Revise belief"]</pre>
+                <p class="guide-note">
+                    The text between the bars — <code>|"Yes"|</code> — is the label on the arrow.
+                </p>
+
+                <h4 class="guide-h">Kinds of nodes</h4>
+                <p>The brackets around the label decide the box's shape:</p>
+                <table class="guide-table">
+                    <tr><td><code>A["text"]</code></td><td>Rectangle — a step or claim</td></tr>
+                    <tr><td><code>A("text")</code></td><td>Rounded — a state or input</td></tr>
+                    <tr><td><code>A{"text"}</code></td><td>Diamond — a decision / question</td></tr>
+                    <tr><td><code>A(["text"])</code></td><td>Stadium — a start or end point</td></tr>
+                    <tr><td><code>A[["text"]]</code></td><td>Subroutine — a sub-process</td></tr>
+                    <tr><td><code>A[("text")]</code></td><td>Cylinder — a store of data</td></tr>
+                </table>
+
+                <h4 class="guide-h">A few handy extras</h4>
+                <table class="guide-table">
+                    <tr><td><code>A --&gt; B &amp; C</code></td><td>A points to both B and C</td></tr>
+                    <tr><td><code>A -.-&gt; B</code></td><td>Dotted arrow</td></tr>
+                    <tr><td><code>A ==&gt; B</code></td><td>Thick arrow</td></tr>
+                    <tr><td><code>A --- B</code></td><td>Plain line, no arrowhead</td></tr>
+                    <tr><td><code>%% a comment</code></td><td>Ignored — a note to yourself</td></tr>
+                </table>
+
+                <p class="guide-footer">
+                    Want every option? See the full
+                    <a href="https://mermaid.js.org/syntax/flowchart.html" target="_blank" rel="noopener">Mermaid flowchart reference</a>.
+                </p>
+            </div>
+        </details>
+
+        <!-- metadata -->
+        <div class="panel-box">
+            <p class="panel-box-title">Protocol details</p>
+            <div class="meta-form">
+
+                <div class="meta-field">
+                    <label for="w-title">Title <span style="color:var(--accent)">*</span></label>
+                    <input id="w-title" type="text" placeholder="Descriptive name for this protocol" required>
+                </div>
+
+                <div class="meta-field">
+                    <label for="w-contributor">Contributor</label>
+                    <input id="w-contributor" type="text" placeholder="Your name (optional)">
+                </div>
+
+                <div class="meta-field">
+                    <label for="w-desc">Caption</label>
+                    <textarea id="w-desc" rows="2" placeholder="One or two sentences describing what this protocol shows"></textarea>
+                </div>
+
+                <div class="meta-field">
+                    <label for="w-tag-input">Tags</label>
+                    <input id="w-tag-input" type="text" placeholder="Type a tag and press Enter or comma">
+                    <div class="tag-chips" id="tag-chips" aria-label="Tags"></div>
+                </div>
+
+                <div class="meta-field">
+                    <label for="w-related">Related book protocols</label>
+                    <select id="w-related" multiple size="4" style="border-radius:10px;">
+                        <!-- populated by workshop.js -->
+                    </select>
+                    <span class="hint">Hold Ctrl / Cmd to select multiple</span>
+                </div>
+
+                <div class="meta-field">
+                    <label for="w-notes">Notes</label>
+                    <textarea id="w-notes" rows="4" placeholder="Longer commentary, context, or analysis — shown on the protocol's detail page"></textarea>
+                </div>
+
+            </div>
+        </div>
+
+    </div><!-- /editor-panel -->
+
+    <!-- RIGHT: PREVIEW -->
+    <div class="preview-panel">
+        <div class="preview-tabs" role="tablist">
+            <button class="preview-tab active" id="tab-preview" role="tab" aria-selected="true" aria-controls="pane-preview">
+                Live preview
+            </button>
+            <button class="preview-tab" id="tab-reference" role="tab" aria-selected="false" aria-controls="pane-reference">
+                Reference
+            </button>
+        </div>
+
+        <div class="preview-pane" id="pane-preview" role="tabpanel">
+            <div id="w-preview">
+                <div class="preview-empty">Your diagram will appear here.</div>
+            </div>
+        </div>
+
+        <div class="preview-pane hidden" id="pane-reference" role="tabpanel">
+            <div id="w-reference-pane">
+                <div class="preview-empty">Select a book protocol as your starting template to see its original diagram here.</div>
+            </div>
+        </div>
+    </div><!-- /preview-panel -->
+
+    <!-- ACTION BAR -->
+    <div class="action-bar">
+        <span class="action-bar-left" id="w-status"></span>
+        <button class="btn-secondary" id="btn-clear">Clear</button>
+        <button class="btn-secondary" id="btn-download">Download PNG</button>
+        <button class="btn-primary" id="btn-save">Save to gallery</button>
+    </div>
+
+</div><!-- /workshop-body -->
+
+<div class="modal-toast" id="toast" role="status" aria-live="polite"></div>
+
+<footer class="site-footer">
+    <p>
+        <em>Reasoning in the Wild</em> · Mariam Thalos ·
+        <a href="index.html">Return to archive</a>
+    </p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script src="data.js"></script>
+<script src="workshop.js"></script>
+</body>
+</html>

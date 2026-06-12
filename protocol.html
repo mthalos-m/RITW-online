@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Protocol — Reasoning in the Wild</title>
+    <meta name="description" content="Protocol detail page — Reasoning in the Wild by Mariam Thalos.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- paper grain texture -->
+<svg aria-hidden="true" focusable="false" style="position:fixed;inset:0;width:100%;height:100%;z-index:9998;pointer-events:none;opacity:0.035">
+    <filter id="grain">
+        <feTurbulence type="fractalNoise" baseFrequency="0.68" numOctaves="4" stitchTiles="stitch"/>
+        <feColorMatrix type="saturate" values="0"/>
+    </filter>
+    <rect width="100%" height="100%" filter="url(#grain)"/>
+</svg>
+
+<a class="skip-link" href="#detail-main">Skip to protocol</a>
+
+<!-- minimal header -->
+<header class="site-header" style="padding-top:2.8rem;padding-bottom:1.8rem;">
+    <p class="header-eyebrow">Protocol Archive</p>
+    <h1 class="site-title" style="font-size:clamp(1.8rem,4vw,3rem);">
+        <a href="index.html" style="text-decoration:none;color:inherit;"><em>Reasoning in the Wild</em></a>
+    </h1>
+    <p class="site-author">by <span>Mariam Thalos</span></p>
+</header>
+
+<!-- breadcrumb / prev-next nav -->
+<nav class="detail-nav" id="detail-nav" aria-label="Protocol navigation">
+    <a href="index.html">&#8592; &nbsp;All protocols</a>
+    <span id="nav-prev-next"></span>
+</nav>
+
+<!-- main content -->
+<main id="detail-main">
+    <div class="detail-wrap" id="detail-wrap">
+        <!-- populated by protocol.js -->
+        <p style="color:var(--muted);font-style:italic;padding:3rem 0;">Loading protocol…</p>
+    </div>
+</main>
+
+<footer class="site-footer">
+    <p>
+        <em>Reasoning in the Wild</em> · Mariam Thalos
+    </p>
+    <p>
+        Protocol archive — companion to the book.
+        All diagrams © Mariam Thalos.
+    </p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script src="data.js"></script>
+<script src="protocol.js"></script>
+</body>
+</html>
