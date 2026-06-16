@@ -81,6 +81,65 @@ body {
 .skip-link:focus { top: 0.5rem; }
 
 /* ============================================================
+   SITE MASTHEAD — presents the archive as a page of
+   mariamthalos.com, with nav back into the main site
+   ============================================================ */
+.site-masthead {
+    width: 100%;
+    background: var(--paper-light);
+    border-bottom: 1px solid var(--rule);
+    box-shadow: 0 1px 6px rgba(50, 32, 12, 0.06);
+}
+
+.masthead-inner {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.6rem 1.5rem;
+    flex-wrap: wrap;
+    padding: 0.7rem var(--gutter);
+}
+
+.masthead-brand {
+    font-size: 1.2rem;
+    font-variant: small-caps;
+    letter-spacing: 0.05em;
+    color: var(--ink);
+    text-decoration: none;
+    white-space: nowrap;
+}
+.masthead-brand:hover { color: var(--accent-dark); }
+
+.masthead-nav {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.2rem 0.3rem;
+}
+
+.masthead-nav a {
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+    text-decoration: none;
+    padding: 0.3rem 0.75rem;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    white-space: nowrap;
+    transition: background 150ms, color 150ms, border-color 150ms;
+}
+.masthead-nav a:hover {
+    background: var(--accent-bg);
+    color: var(--accent-dark);
+}
+.masthead-nav a.active {
+    color: var(--accent-dark);
+    background: var(--accent-bg);
+    border-color: var(--accent-border);
+}
+
+/* ============================================================
    HEADER / HERO
    ============================================================ */
 .site-header {
