@@ -123,15 +123,17 @@ body {
     font-size: 0.92rem;
     color: var(--ink-soft);
     text-decoration: none;
-    padding: 0.3rem 0.75rem;
-    border: 1px solid transparent;
+    padding: 0.3rem 0.85rem;
+    border: 1px solid var(--rule);
     border-radius: 999px;
+    background: var(--card);
     white-space: nowrap;
     transition: background 150ms, color 150ms, border-color 150ms;
 }
 .masthead-nav a:hover {
     background: var(--accent-bg);
     color: var(--accent-dark);
+    border-color: var(--accent);
 }
 .masthead-nav a.active {
     color: var(--accent-dark);
