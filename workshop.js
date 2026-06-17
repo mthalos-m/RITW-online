@@ -436,7 +436,7 @@
 
         try {
             await window.RITWDB.submitProtocol(proto);
-            showToast("Submitted for review — thank you! Returning to the archive…");
+            showToast("Submitted for review — thank you! Returning to the Collaboratory…");
             setTimeout(() => { window.location.href = "index.html"; }, 1900);
         } catch (e) {
             saveBtn.disabled = false;

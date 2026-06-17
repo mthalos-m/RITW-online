@@ -36,14 +36,14 @@
     const id     = params.get("id");
 
     if (!id) {
-        wrap.innerHTML = `<p class="no-results">No protocol ID specified. <a href="index.html">Return to archive.</a></p>`;
+        wrap.innerHTML = `<p class="no-results">No protocol ID specified. <a href="index.html">Return to the Collaboratory.</a></p>`;
         return;
     }
 
     /* ---------- resolve the protocol (book array, then Supabase) ---------- */
     resolveProtocol(id).then(protocol => {
         if (!protocol) {
-            wrap.innerHTML = `<p class="no-results">Protocol <strong>${escHtml(id)}</strong> not found. <a href="index.html">Return to archive.</a></p>`;
+            wrap.innerHTML = `<p class="no-results">Protocol <strong>${escHtml(id)}</strong> not found. <a href="index.html">Return to the Collaboratory.</a></p>`;
             return;
         }
         renderProtocol(protocol);
