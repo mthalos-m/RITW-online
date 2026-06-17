@@ -471,15 +471,43 @@
             const img = new Image();
             img.onload = () => {
                 const scale = 2;
+                const ATTRIB_URL = "https://mthalos-m.github.io/RITW-online";
+                const CAP = 36;  // height of the baked-in attribution band (base px)
+
+                const baseW = img.naturalWidth  || svg.viewBox.baseVal.width  || 800;
+                const baseH = img.naturalHeight || svg.viewBox.baseVal.height || 600;
+
                 const canvas = document.createElement("canvas");
-                canvas.width = (img.naturalWidth || svg.viewBox.baseVal.width || 800) * scale;
-                canvas.height = (img.naturalHeight || svg.viewBox.baseVal.height || 600) * scale;
+                canvas.width  = baseW * scale;
+                canvas.height = (baseH + CAP) * scale;
                 const ctx = canvas.getContext("2d");
                 ctx.scale(scale, scale);
                 ctx.fillStyle = "#fdf9f0";
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-                ctx.drawImage(img, 0, 0);
+                ctx.fillRect(0, 0, baseW, baseH + CAP);
+                ctx.drawImage(img, 0, 0, baseW, baseH);
                 URL.revokeObjectURL(url);
+
+                // ----- attribution caption baked into the export -----
+                const capMid = baseH + CAP / 2 + 1;
+                ctx.strokeStyle = "#e0d3b3";
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.moveTo(16, baseH + 0.5);
+                ctx.lineTo(baseW - 16, baseH + 0.5);
+                ctx.stroke();
+
+                ctx.fillStyle = "#6b5d49";
+                ctx.textBaseline = "middle";
+                ctx.font = '500 12.5px "EB Garamond", Garamond, Georgia, serif';
+                if (baseW < 440) {
+                    ctx.textAlign = "center";
+                    ctx.fillText("Mariam Thalos · Reasoning in the Wild Protocol Collaboratory", baseW / 2, capMid);
+                } else {
+                    ctx.textAlign = "left";
+                    ctx.fillText("Mariam Thalos · Reasoning in the Wild Protocol Collaboratory", 16, capMid);
+                    ctx.textAlign = "right";
+                    ctx.fillText(ATTRIB_URL, baseW - 16, capMid);
+                }
 
                 const title = document.getElementById("w-title").value.trim()
                     .replace(/[^a-z0-9]+/gi, "_").toLowerCase() || "protocol";

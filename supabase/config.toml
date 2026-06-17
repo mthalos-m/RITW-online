@@ -1,0 +1,11 @@
+# Minimal Supabase CLI config. Only the bits this project needs.
+# (If you already have a config.toml from `supabase init`, just merge the
+#  [functions.post-comment] block below into it.)
+
+project_id = "ssukhnqpnlfheutnucgx"
+
+# The site authenticates with the publishable key, not a JWT, so the
+# function must NOT require JWT verification. Our honeypot + Turnstile +
+# rate-limit checks are the real gate.
+[functions.post-comment]
+verify_jwt = false

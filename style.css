@@ -214,6 +214,14 @@ body {
     opacity: 0.7;
 }
 
+.header-credo {
+    max-width: 640px;
+    margin: 1.4rem auto 0;
+    font-size: 1.18rem;
+    color: var(--ink-soft);
+    line-height: 1.6;
+}
+
 .site-tagline {
     max-width: 600px;
     margin: 1.1rem auto 0;
@@ -222,6 +230,11 @@ body {
     color: var(--muted);
     line-height: 1.5;
 }
+
+/* search-only controls bar centers the search box now that the
+   Add Protocol CTA has moved below the gallery */
+.controls-bar--search-only { justify-content: center; }
+.controls-bar--search-only .search-wrap { flex: 1 1 600px; max-width: 600px; }
 
 /* ============================================================
    CONTROLS BAR
@@ -1035,6 +1048,33 @@ body {
 }
 .comment-author { max-width: 280px; }
 .comment-body { resize: vertical; min-height: 56px; }
+
+/* honeypot: kept in the DOM for bots, removed from view & a11y tree */
+.hp-field {
+    position: absolute !important;
+    left: -9999px !important;
+    width: 1px; height: 1px;
+    overflow: hidden;
+}
+
+.comment-note {
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin: -0.1rem 0 0.1rem;
+}
+
+.comment-success {
+    font-size: 0.92rem;
+    color: var(--accent-dark);
+    background: var(--card);
+    border: 1px solid var(--rule-light);
+    border-radius: 8px;
+    padding: 0.7rem 0.9rem;
+    margin-top: 0.7rem;
+}
+
+.cf-turnstile-slot { min-height: 0; }
+.cf-turnstile-slot:not(:empty) { margin: 0.2rem 0; }
 .comment-author:focus,
 .comment-body:focus {
     outline: none;
@@ -1121,6 +1161,28 @@ body {
 /* ============================================================
    FOOTER
    ============================================================ */
+/* ============================================================
+   CONTRIBUTE BAND (below the gallery)
+   ============================================================ */
+.contribute-band {
+    width: min(var(--max-w), calc(100% - 2rem));
+    margin: 3rem auto 0;
+    padding: 2.2rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.1rem;
+    text-align: center;
+    border-top: 1px solid var(--rule-light);
+}
+
+.contribute-lead {
+    font-size: 1.15rem;
+    font-style: italic;
+    color: var(--ink-soft);
+    max-width: 46ch;
+}
+
 .site-footer {
     border-top: 1px solid var(--rule-light);
     padding: 2.5rem var(--gutter);
@@ -1128,6 +1190,14 @@ body {
     font-size: 0.88rem;
     color: var(--muted);
     line-height: 1.8;
+}
+
+.footer-citation {
+    max-width: 640px;
+    margin: 0.4rem auto;
+    font-size: 0.82rem;
+    color: var(--muted);
+    opacity: 0.85;
 }
 
 .site-footer em {

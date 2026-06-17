@@ -3,8 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reasoning in the Wild — Protocol Archive</title>
-    <meta name="description" content="A visual archive of the reasoning protocols, schemata, and diagrams from Reasoning in the Wild by Mariam Thalos.">
+    <title>Reasoning in the Wild — Protocol Collaboratory</title>
+    <meta name="description" content="A living, public-works archive of the reasoning protocols, schemata, and diagrams from Reasoning in the Wild by Mariam Thalos — explore each move, discuss it, and contribute your own.">
+
+    <!-- ===== Social / Open Graph cards ===== -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Reasoning in the Wild — Protocol Collaboratory">
+    <meta property="og:title" content="Reasoning in the Wild — Protocol Collaboratory">
+    <meta property="og:description" content="A living, public-works archive of the reasoning protocols from Mariam Thalos's Reasoning in the Wild — explore each diagram move by move, discuss it, and contribute your own.">
+    <meta property="og:url" content="https://mthalos-m.github.io/RITW-online/">
+    <meta property="og:image" content="https://mthalos-m.github.io/RITW-online/assets/protocols/Figure_1.1_fundamental_practical_syllogism.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Reasoning in the Wild — Protocol Collaboratory">
+    <meta name="twitter:description" content="A living, public-works archive of the reasoning protocols from Mariam Thalos's Reasoning in the Wild — explore each diagram move by move, discuss it, and contribute your own.">
+    <meta name="twitter:image" content="https://mthalos-m.github.io/RITW-online/assets/protocols/Figure_1.1_fundamental_practical_syllogism.png">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -45,13 +57,18 @@
 
 <!-- ===== HEADER ===== -->
 <header class="site-header">
-    <p class="header-eyebrow">Protocol Archive</p>
+    <p class="header-eyebrow">Protocol Collaboratory</p>
 
     <h1 class="site-title"><em>Reasoning in the Wild</em></h1>
 
     <p class="site-author">by <span>Mariam Thalos</span></p>
 
     <p class="header-ornament">✦ &ensp; ✦ &ensp; ✦</p>
+
+    <p class="header-credo">
+        Reasoning is public works for the common mind — this Collaboratory keeps its moves in the open,
+        so they can be examined, discussed, and built on together.
+    </p>
 
     <p class="site-tagline">
         A living archive building on <em>Reasoning in the Wild</em> (by Mariam Thalos) —
@@ -60,8 +77,8 @@
     </p>
 </header>
 
-<!-- ===== CONTROLS ===== -->
-<div class="controls-bar">
+<!-- ===== CONTROLS (search leads the archive) ===== -->
+<div class="controls-bar controls-bar--search-only">
     <div class="search-wrap">
         <input
             id="protocol-search"
@@ -73,14 +90,6 @@
             spellcheck="false"
         >
     </div>
-
-    <a class="btn-add" href="workshop.html">
-        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-            <line x1="10" y1="4" x2="10" y2="16"/>
-            <line x1="4" y1="10" x2="16" y2="10"/>
-        </svg>
-        Add Protocol
-    </a>
 </div>
 
 <!-- ===== CONTENTS / CHAPTER NAV ===== -->
@@ -89,18 +98,34 @@
 <!-- ===== GALLERY ===== -->
 <main id="protocol-gallery" aria-live="polite" aria-label="Protocol archive"></main>
 
+<!-- ===== CONTRIBUTE BAND (follows the archive) ===== -->
+<section class="contribute-band" aria-label="Contribute a protocol">
+    <p class="contribute-lead">Worked out a reasoning protocol of your own? Add it to the common mind.</p>
+    <a class="btn-add" href="workshop.html">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <line x1="10" y1="4" x2="10" y2="16"/>
+            <line x1="4" y1="10" x2="16" y2="10"/>
+        </svg>
+        Add Protocol
+    </a>
+</section>
+
 <!-- ===== FOOTER ===== -->
 <footer class="site-footer">
     <p>
         <em>Reasoning in the Wild</em> · Mariam Thalos
     </p>
     <p>
-        Protocol archive — companion to the book.
+        Protocol Collaboratory — companion to the book.
         All diagrams © Mariam Thalos.
+    </p>
+    <p class="footer-citation">
+        Cite this archive as: Mariam Thalos, <em>Reasoning in the Wild</em> Protocol Collaboratory,
+        https://mthalos-m.github.io/RITW-online, 2026.
     </p>
     <p>
         Contributed a protocol and want it removed, or spotted something amiss?
-        <a href="mailto:m.thalos@gmail.com?subject=Protocol%20archive%20request">Send a request</a>.
+        <a href="mailto:m.thalos@gmail.com?subject=Protocol%20Lab%20request">Send a request</a>.
     </p>
 </footer>
 

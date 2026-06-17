@@ -11,6 +11,20 @@
     const SUPABASE_KEY = "sb_publishable_kwoCn-6lM5CZtviXyt3Vgw_Bhp-cFj5";
     const ENDPOINT     = SUPABASE_URL + "/rest/v1/protocols";
 
+    /* ---------- comment-protection config ----------
+       Fill TURNSTILE_SITE_KEY with your Cloudflare Turnstile *site* key once the
+       `post-comment` Edge Function is deployed (see supabase/README.md). While it
+       is blank the site falls back to posting comments directly (today's behavior,
+       no bot defense) so the Collaboratory keeps working during the cut-over. Once the key is
+       set, every comment is routed through the Edge Function, which verifies the
+       Turnstile token, checks the honeypot, rate-limits per IP, holds link-bearing
+       comments for review, and emails you. */
+    const CONFIG = {
+        TURNSTILE_SITE_KEY: "0x4AAAAAADmqKvvoZ68aQgB-",
+        COMMENT_FN: SUPABASE_URL + "/functions/v1/post-comment",
+        useEdgeFunction() { return !!this.TURNSTILE_SITE_KEY; }
+    };
+
     const BASE_HEADERS = {
         "apikey": SUPABASE_KEY,
         "Authorization": "Bearer " + SUPABASE_KEY,
@@ -86,12 +100,42 @@
         return res.json();
     }
 
-    /* post a comment (or a reply, if parentId is given); returns the new row */
-    async function postComment({ protocolId, parentId, author, body }) {
+    /* Post a comment (or a reply, if parentId is given).
+       Returns { status: "visible" | "pending", comment }.
+         - "visible": posted and live now.
+         - "pending": accepted but held for review (e.g. it contains a link).
+       A name is required. When the Edge Function is configured it enforces the
+       bot defenses; the direct-insert fallback applies the name check client-side. */
+    async function postComment({ protocolId, parentId, author, body, turnstileToken, honeypot }) {
+        const name = (author || "").trim();
+        if (!name) throw new Error("A name is required to comment.");
+
+        /* ---- protected path: route through the Edge Function ---- */
+        if (CONFIG.useEdgeFunction()) {
+            const res = await fetch(CONFIG.COMMENT_FN, {
+                method: "POST",
+                headers: { ...BASE_HEADERS },
+                body: JSON.stringify({
+                    protocol_id:     protocolId,
+                    parent_id:       parentId || null,
+                    author:          name,
+                    body:            body,
+                    turnstile_token: turnstileToken || "",
+                    honeypot:        honeypot || ""      // must be empty for a human
+                })
+            });
+            const data = await res.json().catch(() => ({}));
+            if (!res.ok) {
+                throw new Error(data.error || ("Comment post failed: " + res.status));
+            }
+            return { status: data.status || "visible", comment: data.comment || null };
+        }
+
+        /* ---- fallback path: direct insert (no bot defense, pre-deploy) ---- */
         const payload = {
             protocol_id: protocolId,
             parent_id:   parentId || null,
-            author:      (author || "").trim() || null,
+            author:      name,
             body:        body
         };
         const res = await fetch(COMMENTS, {
@@ -103,10 +147,11 @@
             throw new Error("Supabase comment post failed: " + res.status + " " + (await res.text()));
         }
         const rows = await res.json();
-        return rows[0];
+        return { status: "visible", comment: rows[0] };
     }
 
     global.RITWDB = {
+        CONFIG,
         fetchApprovedProtocols, submitProtocol,
         fetchComments, postComment
     };

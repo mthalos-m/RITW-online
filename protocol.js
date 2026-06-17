@@ -288,11 +288,71 @@
     }
 
     /* ============================================================
+       discussion (comments) — bot defense helpers
+       ============================================================ */
+    const TURNSTILE_KEY = (window.RITWDB && window.RITWDB.CONFIG && window.RITWDB.CONFIG.TURNSTILE_SITE_KEY) || "";
+    let _tsReady = false;
+    const _tsQueue = [];
+
+    /* load the Turnstile script once, only when a site key is configured */
+    function loadTurnstile() {
+        if (!TURNSTILE_KEY || document.getElementById("cf-turnstile-script")) return;
+        window.__ritwTurnstileReady = () => {
+            _tsReady = true;
+            _tsQueue.splice(0).forEach(fn => fn());
+        };
+        const s = document.createElement("script");
+        s.id = "cf-turnstile-script";
+        s.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?onload=__ritwTurnstileReady&render=explicit";
+        s.async = true; s.defer = true;
+        document.head.appendChild(s);
+    }
+
+    const turnstileFieldHtml = () => TURNSTILE_KEY ? `<div class="cf-turnstile-slot"></div>` : "";
+
+    function renderTurnstile(form) {
+        if (!TURNSTILE_KEY) return;
+        const slot = form.querySelector(".cf-turnstile-slot");
+        if (!slot) return;
+        const go = () => {
+            if (slot.dataset.widgetId || !window.turnstile) return;
+            slot.dataset.widgetId = window.turnstile.render(slot, { sitekey: TURNSTILE_KEY });
+        };
+        _tsReady ? go() : _tsQueue.push(go);
+    }
+
+    function turnstileToken(form) {
+        const slot = form.querySelector(".cf-turnstile-slot");
+        if (!slot || !window.turnstile || !slot.dataset.widgetId) return "";
+        try { return window.turnstile.getResponse(slot.dataset.widgetId) || ""; } catch (_) { return ""; }
+    }
+
+    function resetTurnstile(form) {
+        const slot = form.querySelector(".cf-turnstile-slot");
+        if (slot && window.turnstile && slot.dataset.widgetId) {
+            try { window.turnstile.reset(slot.dataset.widgetId); } catch (_) {}
+        }
+    }
+
+    /* an off-screen field that real users never fill but bots tend to */
+    const honeypotHtml = () => `<div class="hp-field" aria-hidden="true">
+            <label>Leave this field blank<input type="text" name="hp_website" tabindex="-1" autocomplete="off"></label>
+        </div>`;
+
+    function showFormNotice(form, msg) {
+        let n = form.parentNode.querySelector(".comment-success");
+        if (!n) { n = document.createElement("p"); n.className = "comment-success"; form.after(n); }
+        n.textContent = msg;
+    }
+
+    /* ============================================================
        discussion (comments)
        ============================================================ */
     function initDiscussion(protocolId) {
         const section = document.getElementById("discussion-section");
         if (!section) return;
+
+        loadTurnstile();
 
         const canComment = window.RITWDB && typeof window.RITWDB.fetchComments === "function";
         if (!canComment) {
@@ -304,8 +364,11 @@
         section.innerHTML = `
             <h2 class="section-title">Discussion <span id="comment-count" class="comment-count"></span></h2>
             <form class="comment-form" id="comment-form">
-                <input class="comment-author" id="comment-author" type="text" placeholder="Your name (optional)" autocomplete="name">
+                <input class="comment-author" id="comment-author" type="text" placeholder="Your name" autocomplete="name" maxlength="80" required>
                 <textarea class="comment-body" id="comment-body" rows="3" placeholder="Add to the discussion…" required></textarea>
+                ${ honeypotHtml() }
+                ${ turnstileFieldHtml() }
+                <p class="comment-note">A name is required. Comments containing a link are held for review before they appear.</p>
                 <div class="comment-form-actions">
                     <button type="submit" class="btn-primary" id="comment-submit">Post comment</button>
                 </div>
@@ -322,6 +385,7 @@
         const bodyEl    = section.querySelector("#comment-body");
         const submitBtn = section.querySelector("#comment-submit");
 
+        renderTurnstile(form);
         load();
 
         async function load() {
@@ -377,46 +441,69 @@
             if (!slot || slot.querySelector("form")) return;     // already open
             slot.innerHTML = `
                 <form class="comment-form reply-form">
-                    <input class="comment-author" type="text" placeholder="Your name (optional)">
+                    <input class="comment-author" type="text" placeholder="Your name" maxlength="80" required>
                     <textarea class="comment-body" rows="2" placeholder="Write a reply…" required></textarea>
+                    ${ honeypotHtml() }
+                    ${ turnstileFieldHtml() }
                     <div class="comment-form-actions">
                         <button type="button" class="btn-secondary reply-cancel">Cancel</button>
                         <button type="submit" class="btn-primary">Post reply</button>
                     </div>
                 </form>`;
             const rForm = slot.querySelector("form");
+            renderTurnstile(rForm);
             rForm.querySelector(".reply-cancel").addEventListener("click", () => { slot.innerHTML = ""; });
             rForm.addEventListener("submit", async e => {
                 e.preventDefault();
-                const a = rForm.querySelector(".comment-author").value;
+                const a = rForm.querySelector(".comment-author").value.trim();
                 const b = rForm.querySelector(".comment-body").value.trim();
+                if (!a) { rForm.querySelector(".comment-author").focus(); return; }
                 if (!b) return;
+                const honeypot = (rForm.querySelector('[name="hp_website"]') || {}).value || "";
                 const btn = rForm.querySelector('button[type="submit"]');
                 btn.disabled = true; btn.textContent = "Posting…";
                 try {
-                    await window.RITWDB.postComment({ protocolId, parentId, author: a, body: b });
-                    slot.innerHTML = "";
-                    load();
+                    const res = await window.RITWDB.postComment({
+                        protocolId, parentId, author: a, body: b,
+                        turnstileToken: turnstileToken(rForm), honeypot
+                    });
+                    if (res.status === "pending") {
+                        slot.innerHTML = `<p class="comment-success">Thanks — replies with links are held for review and will appear once approved.</p>`;
+                    } else {
+                        slot.innerHTML = "";
+                        load();
+                    }
                 } catch (err) {
                     btn.disabled = false; btn.textContent = "Post reply";
-                    alert("Could not post your reply. Please try again.");
+                    alert(err.message || "Could not post your reply. Please try again.");
                 }
             });
-            rForm.querySelector(".comment-body").focus();
+            rForm.querySelector(".comment-author").focus();
         }
 
         form.addEventListener("submit", async e => {
             e.preventDefault();
-            const body = bodyEl.value.trim();
+            const author = authorEl.value.trim();
+            const body   = bodyEl.value.trim();
+            if (!author) { authorEl.focus(); return; }
             if (!body) return;
+            const honeypot = (form.querySelector('[name="hp_website"]') || {}).value || "";
             submitBtn.disabled = true;
             submitBtn.textContent = "Posting…";
             try {
-                await window.RITWDB.postComment({ protocolId, author: authorEl.value, body });
+                const res = await window.RITWDB.postComment({
+                    protocolId, author, body,
+                    turnstileToken: turnstileToken(form), honeypot
+                });
                 bodyEl.value = "";
-                await load();
+                resetTurnstile(form);
+                if (res.status === "pending") {
+                    showFormNotice(form, "Thanks — comments with links are held for review and will appear once approved.");
+                } else {
+                    await load();
+                }
             } catch (err) {
-                alert("Could not post your comment. Please try again.");
+                alert(err.message || "Could not post your comment. Please try again.");
                 console.warn(err);
             } finally {
                 submitBtn.disabled = false;
