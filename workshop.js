@@ -92,13 +92,21 @@
             label: "Practical syllogism",
             group: "book",
             ref: "1.1",
-            /* Major Move (norm scroll) → Minor Move (premise) → Gα (action) */
+            /* Major Move (norm scroll) → Minor Move emblem (oval α over Fα, in a rounded box) → Gα (action) */
             code: `flowchart TD
-    MAJ[/"Major Move:  ∀φ(Fφ → Gφ)"/]
-    MIN(["Minor Move:  α  •  Fα"])
-    ACT(["Gα"])
-    MAJ -->|"the norm for Fs to G"| MIN
-    MIN -->|"α is F"| ACT`,
+    MAJ[/"<span style='font-size:2em'>∀φ(Fφ → Gφ)</span>"/]
+    subgraph MIN[" "]
+        direction TB
+        AO(["<span aria-hidden='true' style='color:transparent'>wwwwwww</span><span style='font-size:2.6em'>α</span><span aria-hidden='true' style='color:transparent'>wwwwwww</span>"])
+        FA["<span style='font-size:2.6em'>Fα</span>"]
+        AO ~~~ FA
+    end
+    GA["<span style='font-size:2em'>Gα</span>"]
+    MAJ ==>|"<span style='font-size:1.6em'>the norm for Fs to G</span>"| MIN
+    MIN ==>|"<span style='font-size:1.6em'>α is F</span>"| GA
+    classDef plain fill:transparent,stroke:none;
+    class FA plain
+    class GA plain`,
         },
         {
             id: "book-1.4",
@@ -200,15 +208,22 @@
             label: "Stereotype threat",
             group: "book",
             ref: "6.1",
-            /* syllogism preempted: 2nd-party minor move, then 1st-person ¬Gα → norm rejected */
+            /* preempted syllogism: three assertions from different sources (common mind / 2nd party / agent) — stacked with NO connecting arrows; only the first-person ☰¬Gα drives the rejection */
             code: `flowchart TD
     MAJ[/"Major Move (common mind):  ∀φ(Fφ → Gφ)"/]
-    MIN(["Minor Move (2nd-party assertion):  α  •  Fα"])
-    FP["First-person authoritative<br/>assertion of identity:  ¬Gα"]
+    subgraph MIN[" "]
+        direction TB
+        AO(["<span aria-hidden='true' style='color:transparent'>wwww</span><span style='font-size:1.5em'>α</span><span aria-hidden='true' style='color:transparent'>wwww</span>"])
+        FA["<span style='font-size:1.5em'>Fα</span>"]
+        AO ~~~ FA
+    end
+    FP["First-person authoritative<br/>assertion of identity:  ☰ ¬Gα"]
     REJ[/"¬∀φ(Fφ → Gφ)"/]
-    MAJ -->|"the norm for Fs to G"| MIN
-    MIN --> FP
-    FP -->|"rejection of the norm"| REJ`,
+    MAJ ~~~ MIN
+    MIN ~~~ FP
+    FP ==>|"rejection of the norm"| REJ
+    classDef plain fill:transparent,stroke:none;
+    class FA plain`,
         },
     ];
 
