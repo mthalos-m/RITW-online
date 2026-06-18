@@ -911,6 +911,10 @@ body {
 #diagram-mermaid svg,
 #walk-diagram svg { max-width: 100%; height: auto; }
 
+/* Rounder corners on subgraph containers (e.g. the FPS minor-move box) */
+#diagram-mermaid .cluster rect,
+#walk-diagram .cluster rect { rx: 22px; ry: 22px; }
+
 .book-quote {
     margin: 0;
     padding: 1.4rem 1.6rem;

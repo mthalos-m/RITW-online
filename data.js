@@ -23,11 +23,19 @@ const protocols = [
         /* --- diagram rebuilt in Mermaid --- */
         mermaidHeader: "flowchart TD",
         mermaidLines: [
-            'MAJ[/"Major Move:  ∀φ(Fφ → Gφ)"/]',
-            'MIN(["Minor Move:  α  •  Fα"])',
-            'ACT(["Gα"])',
-            'MAJ -->|"the norm for Fs to G"| MIN',
-            'MIN -->|"α is F"| ACT'
+            'MAJ[/"<span style=\'font-size:2em\'>∀φ(Fφ → Gφ)</span>"/]',
+            'subgraph MIN[" "]',
+            'direction TB',
+            'AO(["<span aria-hidden=\'true\' style=\'color:transparent\'>wwwwwww</span><span style=\'font-size:2.6em\'>α</span><span aria-hidden=\'true\' style=\'color:transparent\'>wwwwwww</span>"])',
+            'FA["<span style=\'font-size:2.6em\'>Fα</span>"]',
+            'AO ~~~ FA',
+            'end',
+            'GA["<span style=\'font-size:2em\'>Gα</span>"]',
+            'MAJ ==>|"<span style=\'font-size:1.6em\'>the norm for Fs to G</span>"| MIN',
+            'MIN ==>|"<span style=\'font-size:1.6em\'>α is F</span>"| GA',
+            'classDef plain fill:transparent,stroke:none;',
+            'class FA plain',
+            'class GA plain'
         ],
 
         /* --- helpful text from the book (figure 1.1 caption) --- */
@@ -41,12 +49,12 @@ const protocols = [
                 note: "Every practical syllogism opens with a <em>major move</em>: a general norm or commitment, drawn here as a scroll (a parallelogram). The formula <strong>∀φ(Fφ → Gφ)</strong> reads &ldquo;for everything that is F, it is to be G&rdquo; — the norm being put forward, with its illocutionary force."
             },
             {
-                shown: [0, 1, 3],
+                shown: [0, 1, 2, 3, 4, 5, 6, 8, 10, 11],
                 title: "Add the minor move",
-                note: "Beneath it comes the <em>minor move</em>, a rounded box: the agent registers that a particular thing <strong>α is F</strong>. The arrow carries the norm down from the general rule (&ldquo;the norm for Fs to G&rdquo;) to this specific case. Asserting the minor move is already tantamount to a judgment to execute the syllogism."
+                note: "Beneath it comes the <em>minor move</em>: a particular individual <strong>α</strong> — the oval — registered as falling under the predicate, <strong>Fα</strong>. The arrow carries the norm down from the general rule (&ldquo;the norm for Fs to G&rdquo;) to this specific case. Asserting the minor move is already tantamount to a judgment to execute the syllogism."
             },
             {
-                shown: [0, 1, 2, 3, 4],
+                shown: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
                 title: "Arrive at the action",
                 note: "The solid downward arrow discharges into <strong>Gα</strong> — and this is the crux: Gα is not a <em>proposition</em> that α is G, but the agent's <em>action</em> of G-ing α. The syllogism doesn't end in a belief; it ends in a deed. The whole connected set of operations is what Thalos calls a <em>protocol</em>."
             }

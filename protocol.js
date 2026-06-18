@@ -21,6 +21,8 @@
                 secondaryColor:      "#f5eed9",
                 tertiaryColor:       "#ece0c4",
                 edgeLabelBackground: "#fdf9f0",
+                clusterBkg:          "#fdf9f0",
+                clusterBorder:       "#c9b48e",
                 fontFamily:          '"EB Garamond", Garamond, Georgia, serif',
                 fontSize:            "16px",
             },
