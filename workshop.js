@@ -204,11 +204,31 @@
     BEH --> EM`,
         },
         {
+            id: "book-4.1",
+            label: "Transfiguration of the personal",
+            group: "book",
+            ref: "4.1",
+            /* artist's story Ψ → transfigured ψ in the common mind → available as a Minor Move, shown as the oval-in-box emblem (α over Ψα) */
+            code: `flowchart TD
+    PSI["Ψ — a story injected into the world (by an artist)"]
+    COMMON["<span style='font-family:Arial,Helvetica,sans-serif;font-style:italic;font-weight:700'>ψ</span> — transfigured, passes into the Common mind<br/>(a cultural object)"]
+    subgraph MINOR[" "]
+        direction TB
+        AO(["<span aria-hidden='true' style='color:transparent'>wwww</span><span style='font-size:1.5em'>α</span><span aria-hidden='true' style='color:transparent'>wwww</span>"])
+        FA["<span style='font-size:1.5em'>Ψα</span>"]
+        AO ~~~ FA
+    end
+    PSI ==>|"transfigured"| COMMON
+    COMMON ==>|"available as a Minor Move (Ψ applied to α)"| MINOR
+    classDef plain fill:transparent,stroke:none;
+    class FA plain`,
+        },
+        {
             id: "book-6.1",
             label: "Stereotype threat",
             group: "book",
             ref: "6.1",
-            /* preempted syllogism: three assertions from different sources, staggered out of a single column (Major top-left; 2nd-party Minor emblem displaced right; first-person ☰¬Gα centered between them) with NO connecting arrows; only the first-person assertion drives the rejection below it. SL is an invisible spacer that creates the stagger. */
+            /* preempted syllogism: three assertions from different sources, staggered out of a single column (Major top-left; 2nd-party Minor emblem displaced right; first-person ☰¬Gα centered between them). The norm and its 2nd-party application converge on the first-person assertion, which rejects the norm below it. SL is an invisible spacer that creates the stagger. */
             code: `flowchart TD
     MAJ[/"Major Move (common mind):<br/>∀φ(Fφ → Gφ)"/]
     SL[" "]
@@ -222,12 +242,34 @@
     REJ[/"¬∀φ(Fφ → Gφ)"/]
     MAJ ~~~ SL
     MAJ ~~~ MIN
-    MAJ ~~~ FP
-    MIN ~~~ FP
+    MAJ -->|"the syllogism,<br/>mounted on the agent"| FP
+    MIN --> FP
     FP ==>|"rejection of the norm"| REJ
     classDef plain fill:transparent,stroke:none;
     class FA plain
     class SL plain`,
+        },
+        {
+            id: "book-6.2",
+            label: "Quorum reasoning",
+            group: "book",
+            ref: "6.2",
+            /* many independent instances (α, β, …) accumulated in one data format; a single statistical query returns the relative-frequency content C (recency may apply); the awareness note is a dotted side annotation */
+            code: `flowchart TD
+    subgraph STORE["Data format · subconscious tabulation of instances"]
+        direction LR
+        A["α"]
+        B["β"]
+        D["……"]
+        M["further<br/>instances"]
+        A ~~~ B ~~~ D ~~~ M
+    end
+    C["Content C:<br/>relative frequency of the feature in the population<br/>(recency effects may apply)"]
+    AW["not routinely flagged up<br/>for explicit awareness"]
+    STORE ==>|"statistical query"| C
+    C -.- AW
+    classDef note fill:transparent,stroke-dasharray:3 3,color:#6b6457;
+    class AW note`,
         },
     ];
 
