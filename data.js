@@ -732,7 +732,7 @@ const protocols = [
 
         mermaidHeader: "flowchart TD",
         mermaidLines: [
-            'MAJ[/"Major Move (common mind):  ∀φ(Fφ → Gφ)"/]',
+            'MAJ[/"Major Move (common mind):<br/>∀φ(Fφ → Gφ)"/]',
             'subgraph MIN[" "]',
             'direction TB',
             'AO(["<span aria-hidden=\'true\' style=\'color:transparent\'>wwww</span><span style=\'font-size:1.5em\'>α</span><span aria-hidden=\'true\' style=\'color:transparent\'>wwww</span>"])',
@@ -741,8 +741,6 @@ const protocols = [
             'end',
             'FP["First-person authoritative<br/>assertion of identity:  ☰ ¬Gα"]',
             'REJ[/"¬∀φ(Fφ → Gφ)"/]',
-            'MAJ ~~~ MIN',
-            'MIN ~~~ FP',
             'FP ==>|"rejection of the norm"| REJ',
             'classDef plain fill:transparent,stroke:none;',
             'class FA plain'
@@ -755,17 +753,17 @@ const protocols = [
                 note: "As in the fundamental syllogism, we begin with a <strong>Major Move</strong>: the shared norm <strong>∀φ(Fφ → Gφ)</strong>, &lsquo;Fs are to G.&rsquo; But here it comes from the <em>common mind</em> — it is in the air, not asserted by the agent."
             },
             {
-                shown: [0, 1, 2, 3, 4, 5, 6, 9, 12, 13],
+                shown: [0, 1, 2, 3, 4, 5, 6, 10, 11],
                 title: "A second party makes the minor move",
                 note: "The crucial twist: the <strong>Minor Move</strong> — the same oval-in-box emblem as the fundamental syllogism (α is F) — is asserted by a <em>second party</em>, not the agent. Someone else is running the syllogism <em>on</em> the agent, applying the norm to them."
             },
             {
-                shown: [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 12, 13],
+                shown: [0, 1, 2, 3, 4, 5, 6, 7, 10, 11],
                 title: "The first-person counter",
                 note: "The agent cannot simply decline to conclude. They must intervene with a <strong>first-person authoritative assertion of identity</strong>: <strong>¬Gα</strong> — explicitly denying the syllogism's expected upshot about themselves."
             },
             {
-                shown: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
+                shown: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
                 title: "The norm is rejected",
                 note: "That counter-assertion does more than block one inference: it propagates back up to <strong>reject the norm itself</strong>, ¬∀φ(Fφ → Gφ). The agent refuses the generalization, not merely its application to them."
             }
