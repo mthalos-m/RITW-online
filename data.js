@@ -683,9 +683,9 @@ const protocols = [
 
         mermaidHeader: "flowchart TD",
         mermaidLines: [
-            'PSI["<b>Ψ</b> — a story injected into the world (by an artist)"]',
-            'COMMON["ψ — transfigured, passes into the Common mind<br/>(a cultural object)"]',
-            'MINOR[("α<br/>ψα — ψ applied to α<br/>(a Minor Move in individual reasoning)")]',
+            'PSI["Ψ — a story injected into the world (by an artist)"]',
+            'COMMON["<span style=\'font-family:Arial,Helvetica,sans-serif;font-style:italic;font-weight:700\'>ψ</span> — transfigured, passes into the Common mind<br/>(a cultural object)"]',
+            'MINOR[("α<br/>Ψα — Ψ applied to α<br/>(a Minor Move in individual reasoning)")]',
             'PSI ==>|"transfigured"| COMMON',
             'COMMON ==>|"available as a Minor Move"| MINOR'
         ],
@@ -694,17 +694,17 @@ const protocols = [
             {
                 shown: [0],
                 title: "An artist injects a story",
-                note: "It begins with a particular, personal act: an artist releases a story — a capital <strong>Ψ</strong> — into the world. At this stage it is still one author's specific creation, written large."
+                note: "It begins with a particular, personal act: an artist releases a story — <strong>Ψ</strong> — into the world. At this stage it is still one author's specific creation, in its plain original form."
             },
             {
                 shown: [0, 1, 3],
                 title: "Transfigured into the common mind",
-                note: "An audience engages with it <em>reverberatively</em>; its scripts and norms become <strong>transfigured</strong>, transcending the original specifics. The capital <strong>Ψ</strong> is lowered to <strong>ψ</strong> — no longer one author's proper work but a <em>cultural object</em> in the <strong>common mind</strong>. That case shift <em>is</em> the transfiguration of the personal."
+                note: "An audience engages with it <em>reverberatively</em>; its scripts and norms become <strong>transfigured</strong>, transcending the original specifics. In the <strong>common mind</strong> the story takes on a different guise — <strong>ψ</strong>, set in another typeface, a shared <em>cultural object</em> rather than one author's proper work. That altered form <em>is</em> the transfiguration of the personal."
             },
             {
                 shown: [0, 1, 3, 2, 4],
                 title: "Available as a Minor Move",
-                note: "Now common property, ψ enters the <strong>store</strong> of individual reasoning. Applied to a particular case α it yields <strong>ψα</strong> — ψ applied to α — a <strong>Minor Move</strong> anyone can draw on. The personal has become shared inferential material."
+                note: "Drawn back down into anyone's reasoning, it enters the <strong>store</strong> of individual moves — back in its ordinary form, the same as the injected story. Applied to a particular case α it yields the <strong>Minor Move Ψα</strong> (Ψ applied to α). The personal has become shared inferential material."
             }
         ]
     },
