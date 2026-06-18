@@ -934,6 +934,10 @@ body {
     align-items: start;
 }
 
+/* Let grid columns shrink so a long code line scrolls inside .walk-code
+   instead of blowing out the whole walkthrough layout. */
+.walk > * { min-width: 0; }
+
 .walk-stage {
     background: #fffdf8;
     border: 1px solid var(--rule-light);
