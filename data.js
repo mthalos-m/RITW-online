@@ -675,7 +675,7 @@ const protocols = [
 
         mermaidHeader: "flowchart TD",
         mermaidLines: [
-            'PSI["Ψ — a story injected into the world (by an artist)"]',
+            'PSI["<b>Ψ</b> — a story injected into the world (by an artist)"]',
             'COMMON["ψ — transfigured, passes into the Common mind<br/>(a cultural object)"]',
             'MINOR[("α<br/>ψα — ψ applied to α<br/>(a Minor Move in individual reasoning)")]',
             'PSI ==>|"transfigured"| COMMON',
