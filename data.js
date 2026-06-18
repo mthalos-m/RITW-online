@@ -795,7 +795,7 @@ const protocols = [
             'M["further<br/>instances"]',
             'A ~~~ B ~~~ D ~~~ M',
             'end',
-            'C["Content C:<br/>relative frequency of the feature in the population"]',
+            'C["Content C:<br/>relative frequency of the feature in the population<br/>(recency effects may apply)"]',
             'AW["not routinely flagged up<br/>for explicit awareness"]',
             'STORE ==>|"statistical query"| C',
             'C -.- AW',
@@ -817,7 +817,7 @@ const protocols = [
             {
                 shown: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
                 title: "Return a frequency, below awareness",
-                note: "The output is a <strong>content C</strong> attesting to the <em>relative frequency</em> of the feature across the population — &lsquo;how common is this?&rsquo; — and it is <em>not routinely flagged up for explicit awareness</em>, delivered as a felt sense rather than an explicit calculation."
+                note: "The output is a <strong>content C</strong> attesting to the <em>relative frequency</em> of the feature across the population — &lsquo;how common is this?&rsquo; — though <em>recency effects may skew the tally</em>, recent instances weighing more heavily. It is <em>not routinely flagged up for explicit awareness</em>, delivered as a felt sense rather than an explicit calculation."
             }
         ]
     },
