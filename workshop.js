@@ -208,20 +208,26 @@
             label: "Stereotype threat",
             group: "book",
             ref: "6.1",
-            /* preempted syllogism: three assertions from different sources (common mind / 2nd party / agent), displaced into a row (not a vertical column) with NO connecting arrows; only the first-person ☰¬Gα drives the rejection */
+            /* preempted syllogism: three assertions from different sources, staggered out of a single column (Major top-left; 2nd-party Minor emblem displaced right; first-person ☰¬Gα centered between them) with NO connecting arrows; only the first-person assertion drives the rejection below it. SL is an invisible spacer that creates the stagger. */
             code: `flowchart TD
     MAJ[/"Major Move (common mind):<br/>∀φ(Fφ → Gφ)"/]
+    SL[" "]
     subgraph MIN[" "]
         direction TB
         AO(["<span aria-hidden='true' style='color:transparent'>wwww</span><span style='font-size:1.5em'>α</span><span aria-hidden='true' style='color:transparent'>wwww</span>"])
         FA["<span style='font-size:1.5em'>Fα</span>"]
         AO ~~~ FA
     end
-    FP["First-person authoritative<br/>assertion of identity:  ☰ ¬Gα"]
+    FP["First-person authoritative<br/>assertion of identity: <b>☰ ¬Gα</b>"]
     REJ[/"¬∀φ(Fφ → Gφ)"/]
+    MAJ ~~~ SL
+    MAJ ~~~ MIN
+    MAJ ~~~ FP
+    MIN ~~~ FP
     FP ==>|"rejection of the norm"| REJ
     classDef plain fill:transparent,stroke:none;
-    class FA plain`,
+    class FA plain
+    class SL plain`,
         },
     ];
 
