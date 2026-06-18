@@ -781,30 +781,37 @@ const protocols = [
 
         mermaidHeader: "flowchart TD",
         mermaidLines: [
-            'SUB["Subconscious tabulation of instances"]',
-            'STORE["Proprietary data format (instances α, β, …)"]',
-            'EXT["Statistical query"]',
-            'C["Content C: relative frequency of the feature in the population"]',
-            'SUB --> STORE',
-            'STORE --> EXT',
-            'EXT --> C'
+            'subgraph STORE["Data format · subconscious tabulation of instances"]',
+            'direction LR',
+            'A["α"]',
+            'B["β"]',
+            'D["……"]',
+            'M["further<br/>instances"]',
+            'A ~~~ B ~~~ D ~~~ M',
+            'end',
+            'C["Content C:<br/>relative frequency of the feature in the population"]',
+            'AW["not routinely flagged up<br/>for explicit awareness"]',
+            'STORE ==>|"statistical query"| C',
+            'C -.- AW',
+            'classDef note fill:transparent,stroke-dasharray:3 3,color:#6b6457;',
+            'class AW note'
         ],
         bookText: "Quorum reasoning is a big-data affair. Quorum reasoning is a recognition process operating semi-autonomously in the background, utilizing statistical algorithms behind the boundaries of attention. As in Figure 1.8, the trapezoid indicates an unspecified data format, possibly proprietary to the module in which the operation proceeds. The operation, when queried, returns a content attesting to the relative frequency of the feature of interest in the relevant population.",
         walkthrough: [
             {
-                shown: [0, 1],
-                title: "Quietly counting",
-                note: "Below attention, the mind keeps a running <strong>subconscious tabulation of instances</strong>, stored in a module's own proprietary format. You are accumulating statistics without noticing you do so."
+                shown: [0, 1, 2, 3, 4, 5, 6, 7],
+                title: "Quietly counting many instances",
+                note: "Below attention, the mind keeps a running <strong>subconscious tabulation</strong> of <em>many</em> instances — α, β, and countless more, each an independent data point — accumulated together into a module's own data format. The assertions come from many sources, not a single line."
             },
             {
-                shown: [0, 1, 2],
-                title: "A statistical query",
-                note: "When something prompts it, a <strong>statistical query</strong> runs over the tally — the same extraction shape as content recognition (Fig 1.8), but operating on frequencies."
+                shown: [0, 1, 2, 3, 4, 5, 6, 7, 8, 10],
+                title: "A single statistical query",
+                note: "When something prompts it, one <strong>statistical query</strong> runs over the <em>whole aggregate</em> at once — the same extraction shape as content recognition (Fig 1.8), but operating on frequencies across the population."
             },
             {
-                shown: [0, 1, 2, 3, 4, 5, 6],
-                title: "Return a frequency",
-                note: "The output is a <strong>content C</strong> attesting to the <em>relative frequency</em> of the feature across the population — &lsquo;how common is this?&rsquo; — delivered as a felt sense rather than an explicit calculation."
+                shown: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
+                title: "Return a frequency, below awareness",
+                note: "The output is a <strong>content C</strong> attesting to the <em>relative frequency</em> of the feature across the population — &lsquo;how common is this?&rsquo; — and it is <em>not routinely flagged up for explicit awareness</em>, delivered as a felt sense rather than an explicit calculation."
             }
         ]
     },
