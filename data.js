@@ -407,27 +407,32 @@ const protocols = [
 
         mermaidHeader: "flowchart TD",
         mermaidLines: [
-            'SELF["The Self (α)"]',
-            'SC(["Self-concept:  Fα"])',
+            'subgraph SC[" "]',
+            'direction TB',
+            'AO(["<span aria-hidden=\'true\' style=\'color:transparent\'>wwww</span><span style=\'font-size:1.5em\'>α</span><span aria-hidden=\'true\' style=\'color:transparent\'>wwww</span>"])',
+            'FA["<span style=\'font-size:1.5em\'>Fα</span>"]',
+            'AO ~~~ FA',
+            'end',
             'ACT["Self-attribution in action · body image · behaviour"]',
-            'SELF --> SC',
-            'SC --> ACT',
-            'ACT -.->|"may distort reality, for better or worse"| SC'
+            'SC ==>|"drives self-attribution"| ACT',
+            'ACT -.->|"may distort reality, for better or worse"| SC',
+            'classDef plain fill:transparent,stroke:none;',
+            'class FA plain'
         ],
         bookText: "The Self/self-concept in action. In the book's illustration, a child self-attributes a particular grown-up dress (perhaps that of a parent); a person depicts a body image grossly out of proportion to their actual body; and another sees herself as a lion. A self-concept can represent all manner of distortions to the reality that is yourself, for better or worse. (This figure is a conceptual illustration rather than a step protocol; the diagram below renders its logical core.)",
         walkthrough: [
             {
-                shown: [0, 1, 3],
+                shown: [0, 1, 2, 3, 4, 5, 9, 10],
                 title: "The Self forms a self-concept",
-                note: "The Self, <strong>α</strong>, attributes to itself a self-concept <strong>Fα</strong> — &lsquo;I am F.&rsquo; This is not a neutral readout of facts but a self-attribution."
+                note: "The Self, <strong>α</strong> — the individual in the oval — attributes to itself a self-concept <strong>Fα</strong>, &lsquo;I am F.&rsquo; This is not a neutral readout of facts but a self-attribution, drawn as the same minor-move emblem as the fundamental syllogism."
             },
             {
-                shown: [0, 1, 3, 2, 4],
+                shown: [0, 1, 2, 3, 4, 5, 6, 7, 9, 10],
                 title: "The self-concept drives action",
                 note: "The self-concept expresses itself in <strong>action, body image, and behaviour</strong> — the child dressing as a parent, the person carrying a distorted body image, the self imagined as a lion."
             },
             {
-                shown: [0, 1, 3, 2, 4, 5],
+                shown: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
                 title: "And feeds back on reality",
                 note: "Crucially, the loop closes: how one acts <em>reshapes</em> the self-concept in turn. A self-concept can represent &lsquo;all manner of distortions to the reality that is yourself, for better or worse.&rsquo;"
             }
@@ -685,9 +690,16 @@ const protocols = [
         mermaidLines: [
             'PSI["Ψ — a story injected into the world (by an artist)"]',
             'COMMON["<span style=\'font-family:Arial,Helvetica,sans-serif;font-style:italic;font-weight:700\'>ψ</span> — transfigured, passes into the Common mind<br/>(a cultural object)"]',
-            'MINOR[("α<br/>Ψα — Ψ applied to α<br/>(a Minor Move in individual reasoning)")]',
+            'subgraph MINOR[" "]',
+            'direction TB',
+            'AO(["<span aria-hidden=\'true\' style=\'color:transparent\'>wwww</span><span style=\'font-size:1.5em\'>α</span><span aria-hidden=\'true\' style=\'color:transparent\'>wwww</span>"])',
+            'FA["<span style=\'font-size:1.5em\'>Ψα</span>"]',
+            'AO ~~~ FA',
+            'end',
             'PSI ==>|"transfigured"| COMMON',
-            'COMMON ==>|"available as a Minor Move"| MINOR'
+            'COMMON ==>|"available as a Minor Move (Ψ applied to α)"| MINOR',
+            'classDef plain fill:transparent,stroke:none;',
+            'class FA plain'
         ],
         bookText: "The transfiguration of the personal: a sociological protocol. An artist injects a story (or chirp, if you will) Ψ into the world, whereupon an audience actively engages with it, reverberatively. As a result, the scripts and norms associated with it become transfigured, transcending the specifics of the original story, attaining a new status as a cultural object, and ultimately passing into the common mind — there to become available for applications in individual reasoning as a Minor Move (Ψ applied to α).",
         walkthrough: [
@@ -697,14 +709,14 @@ const protocols = [
                 note: "It begins with a particular, personal act: an artist releases a story — <strong>Ψ</strong> — into the world. At this stage it is still one author's specific creation, in its plain original form."
             },
             {
-                shown: [0, 1, 3],
+                shown: [0, 1, 8],
                 title: "Transfigured into the common mind",
                 note: "An audience engages with it <em>reverberatively</em>; its scripts and norms become <strong>transfigured</strong>, transcending the original specifics. In the <strong>common mind</strong> the story takes on a different guise — <strong>ψ</strong>, set in another typeface, a shared <em>cultural object</em> rather than one author's proper work. That altered form <em>is</em> the transfiguration of the personal."
             },
             {
-                shown: [0, 1, 3, 2, 4],
+                shown: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
                 title: "Available as a Minor Move",
-                note: "Drawn back down into anyone's reasoning, it enters the <strong>store</strong> of individual moves — back in its ordinary form, the same as the injected story. Applied to a particular case α it yields the <strong>Minor Move Ψα</strong> (Ψ applied to α). The personal has become shared inferential material."
+                note: "Drawn back down into anyone's reasoning, it becomes available as a <strong>Minor Move</strong> — the same oval-in-box emblem as the fundamental syllogism, here with the individual α in the oval and <strong>Ψα</strong> (Ψ applied to α) beneath. The personal has become shared inferential material."
             }
         ]
     },
@@ -721,12 +733,19 @@ const protocols = [
         mermaidHeader: "flowchart TD",
         mermaidLines: [
             'MAJ[/"Major Move (common mind):  ∀φ(Fφ → Gφ)"/]',
-            'MIN(["Minor Move (2nd-party assertion):  α  •  Fα"])',
+            'subgraph MIN[" "]',
+            'direction TB',
+            'AO(["<span aria-hidden=\'true\' style=\'color:transparent\'>wwww</span><span style=\'font-size:1.5em\'>α</span><span aria-hidden=\'true\' style=\'color:transparent\'>wwww</span>"])',
+            'FA["<span style=\'font-size:1.5em\'>Fα</span>"]',
+            'AO ~~~ FA',
+            'end',
             'FP["First-person authoritative<br/>assertion of identity:  ¬Gα"]',
             'REJ[/"¬∀φ(Fφ → Gφ)"/]',
-            'MAJ -->|"the norm for Fs to G"| MIN',
-            'MIN --> FP',
-            'FP -->|"rejection of the norm"| REJ'
+            'MAJ -->|"a 2nd party applies the norm to α"| MIN',
+            'MIN -->|"the agent counters, first-person"| FP',
+            'FP -->|"rejection of the norm"| REJ',
+            'classDef plain fill:transparent,stroke:none;',
+            'class FA plain'
         ],
         bookText: "A stereotype threat in the second person cannot be countered simply by a preemption of the entire syllogism. This is because the Minor move is performed by a second party, who asserts both the norm and the application of the norm to the agent. The agent must counter the move by a first-person authoritative assertion of their identity — denying the syllogism's usual upshot and asserting its negation. This allows the agent to reject the norm as a generalization.",
         walkthrough: [
@@ -736,17 +755,17 @@ const protocols = [
                 note: "As in the fundamental syllogism, we begin with a <strong>Major Move</strong>: the shared norm <strong>∀φ(Fφ → Gφ)</strong>, &lsquo;Fs are to G.&rsquo; But here it comes from the <em>common mind</em> — it is in the air, not asserted by the agent."
             },
             {
-                shown: [0, 1, 4],
+                shown: [0, 1, 2, 3, 4, 5, 6, 9, 12, 13],
                 title: "A second party makes the minor move",
-                note: "The crucial twist: the <strong>Minor Move</strong> — α is F — is asserted by a <em>second party</em>, not the agent. Someone else is running the syllogism <em>on</em> the agent, applying the norm to them."
+                note: "The crucial twist: the <strong>Minor Move</strong> — the same oval-in-box emblem as the fundamental syllogism (α is F) — is asserted by a <em>second party</em>, not the agent. Someone else is running the syllogism <em>on</em> the agent, applying the norm to them."
             },
             {
-                shown: [0, 1, 4, 2, 5],
+                shown: [0, 1, 2, 3, 4, 5, 6, 7, 9, 10, 12, 13],
                 title: "The first-person counter",
                 note: "The agent cannot simply decline to conclude. They must intervene with a <strong>first-person authoritative assertion of identity</strong>: <strong>¬Gα</strong> — explicitly denying the syllogism's expected upshot about themselves."
             },
             {
-                shown: [0, 1, 4, 2, 5, 3, 6],
+                shown: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
                 title: "The norm is rejected",
                 note: "That counter-assertion does more than block one inference: it propagates back up to <strong>reject the norm itself</strong>, ¬∀φ(Fφ → Gφ). The agent refuses the generalization, not merely its application to them."
             }
