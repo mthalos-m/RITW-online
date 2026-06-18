@@ -153,19 +153,23 @@
             label: "Dissonance / self-concept",
             group: "book",
             ref: "1.11",
-            /* social info → self-concept Fα vs ¬Fα → unresolved? → reaffirm (loop) */
+            /* two inputs: recent ¬Fα (social) vs self-concept Fα as expectation → dissonance → F-ish behavior (reclaim loop) → subsequently reaffirm Fα!! */
             code: `flowchart TD
     IN["Information absorbed socially"]
-    SC(["Self-concept:  Fα"])
     NF["¬Fα"]
+    SC(["Self-concept: Fα<br/>(expectation)"])
     CHK{"Unresolved?"}
-    SA["Self-affirmation  Fα!!  /  F-ish behavior"]
-    IN --> SC
-    SC --> NF
-    NF --> CHK
-    CHK -->|"dissonance"| SA
-    SA -.->|"reclaim F in good conscience"| IN
-    SA --> EM(["episodic memory of F-ish action"])`,
+    BEH["F-ish behavior"]
+    AFF(["Self-affirmation Fα!!"])
+    EM(["episodic memory of F-ish action"])
+    IN -->|"recency"| NF
+    NF -->|"recent evidence"| CHK
+    SC -.->|"expectation"| CHK
+    CHK -->|"dissonance"| BEH
+    BEH -->|"reclaim F in good conscience"| IN
+    BEH -->|"licenses, in good conscience"| AFF
+    SC ==>|"lean harder"| AFF
+    BEH --> EM`,
         },
         {
             id: "book-2.1",
@@ -175,16 +179,20 @@
             /* same shape as 1.11, with cult-instilled identity Gα replacing old self */
             code: `flowchart TD
     IN["Information absorbed socially"]
-    CI(["Cult-instilled identity:  Gα"])
     NG["¬Gα"]
+    CI(["Cult-instilled identity: Gα<br/>(expectation)"])
     CHK{"Unresolved?"}
-    SA["Self-affirmation  Gα!!  /  G-ish behavior"]
-    IN --> CI
-    CI --> NG
-    NG --> CHK
-    CHK -->|"dissonance"| SA
-    SA -.->|"reclaim G in good conscience"| IN
-    SA --> EM(["episodic memory of G-ish action"])`,
+    BEH["G-ish behavior"]
+    AFF(["Self-affirmation Gα!!"])
+    EM(["episodic memory of G-ish action"])
+    IN -->|"recency"| NG
+    NG -->|"recent evidence"| CHK
+    CI -.->|"instilled expectation"| CHK
+    CHK -->|"dissonance"| BEH
+    BEH -->|"reclaim G in good conscience"| IN
+    BEH -->|"licenses, in good conscience"| AFF
+    CI ==>|"lean harder"| AFF
+    BEH --> EM`,
         },
         {
             id: "book-6.1",

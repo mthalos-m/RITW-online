@@ -438,43 +438,47 @@ const protocols = [
         mermaidHeader: "flowchart TD",
         mermaidLines: [
             'IN["Information absorbed socially"]',
-            'SC(["Self-concept:  Fα"])',
             'NF["¬Fα"]',
+            'SC(["Self-concept: Fα<br/>(expectation)"])',
             'CHK{"Unresolved?"}',
-            'SA["Self-affirmation  Fα!!  /  F-ish behavior"]',
-            'IN --> SC',
-            'SC --> NF',
-            'NF --> CHK',
-            'CHK -->|"dissonance"| SA',
-            'SA -.->|"reclaim F in good conscience"| IN',
-            'SA --> EM(["episodic memory of F-ish action"])'
+            'BEH["F-ish behavior"]',
+            'AFF(["Self-affirmation Fα!!"])',
+            'EM(["episodic memory of F-ish action"])',
+            'IN -->|"recency"| NF',
+            'NF -->|"recent evidence"| CHK',
+            'SC -.->|"expectation"| CHK',
+            'CHK -->|"dissonance"| BEH',
+            'BEH -->|"reclaim F in good conscience"| IN',
+            'BEH -->|"licenses, in good conscience"| AFF',
+            'SC ==>|"lean harder"| AFF',
+            'BEH --> EM'
         ],
         bookText: "When a prized self-conception Fα is imperiled, this creates the physiological condition of cognitive dissonance — a state of discomfort that prompts the subject to take actions which create enough social evidence to reclaim the attribute F in good conscience, by forceful reaffirmation of Fα. The self-concept here is favoured by dissonance reduction (indicated by the bolding around the self-concept in the figure), so evidence that favours concluding Fα will be actively sought, and even manufactured.",
         walkthrough: [
             {
-                shown: [0, 1, 5],
-                title: "A self-concept is in play",
-                note: "Socially absorbed information bears on a <em>prized</em> self-concept, <strong>Fα</strong> — &lsquo;I am F.&rsquo; The bolding in the figure marks that this self-concept is the protected party in what follows."
+                shown: [0, 1, 7, 2],
+                title: "Two sources of information",
+                note: "Two things bear on the self-conception <strong>Fα</strong> — &lsquo;I am F.&rsquo; The socially absorbed materials currently carry <em>recent</em> counter-evidence, <strong>¬Fα</strong>; against it stands the self-concept <strong>Fα</strong>, held as a standing <em>expectation</em>."
             },
             {
-                shown: [0, 1, 5, 2, 6],
-                title: "Counter-evidence arrives",
-                note: "Incoming social evidence points the other way: <strong>¬Fα</strong>. The subject is now confronted with material that threatens a self-conception they are invested in holding."
+                shown: [0, 1, 7, 2, 3, 8, 9],
+                title: "Expectation versus recency",
+                note: "The expectation would ordinarily win out automatically. But because of <em>recency effects</em> in the socially absorbed information, the recent <strong>¬Fα</strong> stays live and the self-concept does <em>not</em> automatically prevail."
             },
             {
-                shown: [0, 1, 5, 2, 6, 3, 7],
-                title: "Dissonance, unresolved",
-                note: "The clash is <em>Unresolved?</em> — and an unresolved clash around the self-concept is precisely <strong>cognitive dissonance</strong>: a felt, physiological discomfort, not a calm logical puzzle."
+                shown: [0, 1, 7, 2, 3, 8, 9, 4, 10],
+                title: "Genuine dissonance",
+                note: "When the expectation fails to win out on its own, the clash is truly <em>Unresolved?</em> — and that is <strong>cognitive dissonance</strong>: a felt, physiological discomfort, not a calm logical puzzle. It drives the subject to act."
             },
             {
-                shown: [0, 1, 5, 2, 6, 3, 7, 4, 8],
-                title: "Self-affirmation fires",
-                note: "Dissonance drives <strong>self-affirmation</strong>: forceful Fα behaviour and reaffirmation (Fα!!). Evidence favouring Fα is now actively sought — and, the figure notes, even <em>manufactured</em>."
+                shown: [0, 1, 7, 2, 3, 8, 9, 4, 10, 11, 6, 14],
+                title: "Act to reclaim F",
+                note: "Dissonance prompts <strong>F-ish behaviour</strong>: the subject does F-ish things to give themselves <em>even more recent</em> social evidence of Fα — <em>reclaiming F in good conscience</em> by feeding it back into the absorbed materials — and lays down an <strong>episodic memory of the F-ish action</strong> to cite later."
             },
             {
-                shown: [0, 1, 5, 2, 6, 3, 7, 4, 8, 9, 10],
-                title: "The loop closes",
-                note: "The affirming action both <em>reclaims F in good conscience</em> (feeding back into the social information) and is laid down as an <strong>episodic memory of F-ish action</strong> — evidence the subject can cite to themselves later."
+                shown: [0, 1, 7, 2, 3, 8, 9, 4, 10, 11, 6, 14, 5, 12, 13],
+                title: "Lean harder — self-affirmation",
+                note: "Only <em>subsequently</em>, now in good conscience, can the subject lean harder on the self-concept side with <strong>self-affirmation (Fα!!)</strong>. That reaffirmation is the <em>resolution</em> of the dissonance — and the self-concept is favoured throughout (the bolding in the figure)."
             }
         ]
     },
@@ -615,43 +619,47 @@ const protocols = [
         mermaidHeader: "flowchart TD",
         mermaidLines: [
             'IN["Information absorbed socially"]',
-            'CI(["Cult-instilled identity:  Gα"])',
             'NG["¬Gα"]',
+            'CI(["Cult-instilled identity: Gα<br/>(expectation)"])',
             'CHK{"Unresolved?"}',
-            'SA["Self-affirmation  Gα!!  /  G-ish behavior"]',
-            'IN --> CI',
-            'CI --> NG',
-            'NG --> CHK',
-            'CHK -->|"dissonance"| SA',
-            'SA -.->|"reclaim G in good conscience"| IN',
-            'SA --> EM(["episodic memory of G-ish action"])'
+            'BEH["G-ish behavior"]',
+            'AFF(["Self-affirmation Gα!!"])',
+            'EM(["episodic memory of G-ish action"])',
+            'IN -->|"recency"| NG',
+            'NG -->|"recent evidence"| CHK',
+            'CI -.->|"instilled expectation"| CHK',
+            'CHK -->|"dissonance"| BEH',
+            'BEH -->|"reclaim G in good conscience"| IN',
+            'BEH -->|"licenses, in good conscience"| AFF',
+            'CI ==>|"lean harder"| AFF',
+            'BEH --> EM'
         ],
         bookText: "When an identity G — ordinary, or instilled as by a cult — is imperiled by information in the social environment (such as someone denying the subject the characteristic G), this creates the physiological condition of cognitive dissonance: a state of discomfort that prompts the subject to take G-ish actions (performing behaviors associated with G) so as to create enough social evidence to reclaim G in good conscience, by forceful reaffirmation of Gα. The cult-instilled self-concept is favoured, so evidence concluding Gα will be actively sought, and manufactured where necessary. The mechanism is exactly that of Figure 1.11 — with a cult-supplied identity standing in for the prized self-concept.",
         walkthrough: [
             {
-                shown: [0, 1, 5],
-                title: "A cult-instilled identity",
-                note: "The very same machinery as the self-concept protocol, with one substitution: the protected party is now <strong>Gα</strong>, an identity <em>instilled by the cult</em> rather than grown by the subject. The cult installs it where the old identity stood."
+                shown: [0, 1, 7, 2],
+                title: "Two sources, one instilled",
+                note: "The very same machinery as the self-concept protocol, with one substitution. The socially absorbed materials carry <em>recent</em> counter-evidence, <strong>¬Gα</strong>; against it stands <strong>Gα</strong> — an identity <em>instilled by the cult</em> rather than grown by the subject — held as a standing expectation where the old identity once stood."
             },
             {
-                shown: [0, 1, 5, 2, 6],
-                title: "The world pushes back",
-                note: "Social information denies the characteristic: <strong>¬Gα</strong>. Someone or something refuses to treat the subject as G, threatening the installed identity."
+                shown: [0, 1, 7, 2, 3, 8, 9],
+                title: "Expectation versus recency",
+                note: "The instilled identity would ordinarily win out on its own. But <em>recency effects</em> in the social information keep the denial <strong>¬Gα</strong> live — someone refuses to treat the subject as G — so the cult identity does <em>not</em> automatically prevail."
             },
             {
-                shown: [0, 1, 5, 2, 6, 3, 7],
-                title: "Dissonance, unresolved",
-                note: "Unresolved, the clash becomes <strong>cognitive dissonance</strong> — the same physiological discomfort, now organised around a manufactured rather than native self-concept."
+                shown: [0, 1, 7, 2, 3, 8, 9, 4, 10],
+                title: "Genuine dissonance",
+                note: "When the instilled expectation fails to win out by itself, the clash is truly <em>Unresolved?</em> — <strong>cognitive dissonance</strong>, the same physiological discomfort, now organised around a manufactured rather than native self-concept."
             },
             {
-                shown: [0, 1, 5, 2, 6, 3, 7, 4, 8],
-                title: "G-ish behaviour fires",
-                note: "Dissonance drives <strong>self-affirmation</strong>: the subject performs G-ish behaviours and reaffirms Gα. Evidence for G is sought and, where it is lacking, <em>manufactured</em>."
+                shown: [0, 1, 7, 2, 3, 8, 9, 4, 10, 11, 6, 14],
+                title: "Act to reclaim G",
+                note: "Dissonance prompts <strong>G-ish behaviour</strong>: the subject performs the cult's behaviours to give themselves <em>even more recent</em> social evidence of Gα — <em>reclaiming G in good conscience</em> back into the absorbed materials — and lays down an <strong>episodic memory of the G-ish action</strong>."
             },
             {
-                shown: [0, 1, 5, 2, 6, 3, 7, 4, 8, 9, 10],
-                title: "The cult identity is reinforced",
-                note: "The affirming action reclaims G in good conscience and is stored as an <strong>episodic memory of G-ish action</strong> — so each cycle further entrenches the cult-instilled identity in place of the old one."
+                shown: [0, 1, 7, 2, 3, 8, 9, 4, 10, 11, 6, 14, 5, 12, 13],
+                title: "Lean harder — reaffirm Gα!!",
+                note: "Only <em>subsequently</em>, now in good conscience, can the subject lean harder on the instilled identity with <strong>self-affirmation (Gα!!)</strong>. That reaffirmation resolves the dissonance — and each cycle further entrenches the cult-instilled identity in place of the old one."
             }
         ]
     },
