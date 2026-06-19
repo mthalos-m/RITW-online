@@ -571,10 +571,10 @@
                 ctx.font = '500 12.5px "EB Garamond", Garamond, Georgia, serif';
                 if (baseW < 440) {
                     ctx.textAlign = "center";
-                    ctx.fillText("Mariam Thalos · Reasoning in the Wild Protocol Collaboratory", baseW / 2, capMid);
+                    ctx.fillText("Mariam Thalos · Reasoning in the Wild Live Protocol Collaboratory", baseW / 2, capMid);
                 } else {
                     ctx.textAlign = "left";
-                    ctx.fillText("Mariam Thalos · Reasoning in the Wild Protocol Collaboratory", 16, capMid);
+                    ctx.fillText("Mariam Thalos · Reasoning in the Wild Live Protocol Collaboratory", 16, capMid);
                     ctx.textAlign = "right";
                     ctx.fillText(ATTRIB_URL, baseW - 16, capMid);
                 }

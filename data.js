@@ -62,7 +62,7 @@ const protocols = [
     },
     {
         id: "1.2",
-        title: "Capgras inference (compare two abbreviated schemata)",
+        title: "Capgras inference — compare two abbreviated schemata",
         chapter: 1,
         page: 63,
         image: "assets/protocols/Figure_1.2_Capgras_inference_abbreviated_schemata.png",
@@ -386,7 +386,7 @@ const protocols = [
     },
     {
         id: "1.9",
-        title: "Perception reprocessing (on command)",
+        title: "Perception reprocessing — on command",
         chapter: 1,
         page: 72,
         image: "assets/protocols/Figure_1.9_Perception_reprocessing.png",
@@ -529,7 +529,7 @@ const protocols = [
     },
     {
         id: "1.12",
-        title: "Person recognition (visual) in the fusiform gyrus",
+        title: "Person recognition — visual — in the fusiform gyrus",
         chapter: 1,
         page: 77,
         image: "assets/protocols/Figure_1.12_Person_recognition_visual_fusiform_gyrus.png",

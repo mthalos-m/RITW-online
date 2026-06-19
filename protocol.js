@@ -78,7 +78,7 @@
         const prev = protocols[idx - 1];
         const next = protocols[idx + 1];
 
-        document.title = `${protocol.title} — Reasoning in the Wild`;
+        document.title = `${protocol.title} — Reasoning in the Wild Live`;
 
         prevNext.innerHTML =
             (prev ? `<a href="protocol.html?id=${encodeURIComponent(prev.id)}">&#8592; ${escHtml(prevLabel(prev))}</a>` : "") +
