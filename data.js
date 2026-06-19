@@ -326,29 +326,38 @@ const protocols = [
         mermaidHeader: "flowchart TD",
         mermaidLines: [
             'VIS["Vision"]',
-            'STORE["Proprietary data format (instances α, β, …)"]',
-            'EXT["Extraction"]',
-            'C["Content C  (e.g. an image, a sound, or \'cat nearby\')"]',
-            'VIS --> STORE',
-            'STORE --> EXT',
-            'EXT --> C'
+            'subgraph STORE["Data format · instances"]',
+            'direction LR',
+            'A["α"]',
+            'B["β"]',
+            'D["……"]',
+            'M["further<br/>instances"]',
+            'A ~~~ B ~~~ D ~~~ M',
+            'end',
+            'C["Content C<br/>(an image, a sound, or \'cat nearby\')"]',
+            'AW["not routinely flagged up<br/>for explicit awareness"]',
+            'VIS ==>|"feeds the module"| STORE',
+            'STORE ==>|"extraction"| C',
+            'C -.- AW',
+            'classDef note fill:transparent,stroke-dasharray:3 3,color:#6b6457;',
+            'class AW note'
         ],
         bookText: "Content extraction / recognition (from Vision, for example). This figure depicts a process of learning or training. The trapezoid in the original figure indicates an unspecified data format, possibly proprietary to the module (for example, a sensory processing unit), which extracts — indicated by the pyramidal figure — a content C that might be an image or sound, or could be represented propositionally (\"cat nearby\"). This content is not routinely flagged for explicit awareness.",
         walkthrough: [
             {
-                shown: [0, 1],
+                shown: [0, 1, 2, 3, 4, 5, 6, 7, 8, 11],
                 title: "Raw input in a proprietary format",
-                note: "Vision feeds a module that stores instances (α, β, …) in its own <em>proprietary data format</em> — not yet anything the rest of the mind can read."
+                note: "Vision feeds a module that holds <em>many</em> instances (α, β, …) in its own <em>proprietary data format</em> — not yet anything the rest of the mind can read."
             },
             {
-                shown: [0, 1, 2],
+                shown: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12],
                 title: "Extraction",
-                note: "An <strong>extraction</strong> operation distils the stored material — the step that turns formatless input into something usable."
+                note: "An <strong>extraction</strong> (the pyramidal/del operation) distils the stored material over the whole aggregate — the step that turns formatless input into something usable."
             },
             {
-                shown: [0, 1, 2, 3, 4, 5, 6],
+                shown: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
                 title: "A content emerges",
-                note: "The output is a <strong>content C</strong> — an image, a sound, or a proposition like &lsquo;cat nearby.&rsquo; Crucially, this content is produced <em>without</em> being routinely flagged for explicit awareness; recognition mostly runs silently."
+                note: "The output is a <strong>content C</strong> — an image, a sound, or a proposition like &lsquo;cat nearby.&rsquo; Crucially, this content is produced <em>without</em> being routinely flagged for explicit awareness; recognition mostly runs silently. (The same shape recurs in Fig 6.2, there over frequencies.)"
             }
         ]
     },
