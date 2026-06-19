@@ -302,7 +302,7 @@ const protocols = [
         mermaidLines: [
             'PAT["Pattern / image recognition (cf. Fig 1.8)"]',
             'EXP["Expectations / predictions (constrain processing)"]',
-            'PER["PERCEPT  [time / place stamp]"]',
+            'PER["<b>PERCEPT</b>  [time / place stamp]"]',
             'PAT --> PER',
             'EXP --> PER',
             'PER -->|"FLAG planted"| EM(["episodic memory: new entry, or pointer to existing"])'
