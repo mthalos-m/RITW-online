@@ -835,10 +835,10 @@ const protocols = [
 
 /* Chapter metadata */
 const chapters = {
-    1: { label: "Chapter I",   title: "The Architecture of Reason" },
-    2: { label: "Chapter II",  title: "Identity and Dissonance" },
-4: { label: "Chapter IV",  title: "The Sociological Turn" },
-    6: { label: "Chapter VI",  title: "Quorum and Stereotype" }
+    1: { label: "Chapter 1", title: "The Architecture of Reason" },
+    2: { label: "Chapter 2", title: "Identity and Dissonance" },
+    4: { label: "Chapter 4", title: "The Sociological Turn" },
+    6: { label: "Chapter 6", title: "Quorum and Stereotype" }
 };
 
 /* Reader-contributed protocols are loaded asynchronously from Supabase
