@@ -26,7 +26,7 @@
                 fontFamily:          '"EB Garamond", Garamond, Georgia, serif',
                 fontSize:            "16px",
             },
-            flowchart: { curve: "basis", padding: 20 },
+            flowchart: { curve: "basis", padding: 20, subGraphTitleMargin: { top: 10, bottom: 16 } },
             securityLevel: "loose",
         });
     }
