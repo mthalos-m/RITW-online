@@ -74,6 +74,7 @@ const protocols = [
         mermaidHeader: "flowchart TD",
         mermaidLines: [
             'subgraph CAP["`***Capgras failure***`"]',
+            'CAP_SP[" "]',
             'subgraph CAP_T["Temporal lobe processing"]',
             'A2["α is A"]',
             'end',
@@ -81,10 +82,13 @@ const protocols = [
             'FAM2["PLUS <b>☰</b><br/>(feeling of familiarity)"]',
             'end',
             'MOM2["α is Mom but not <b>☰</b> Mom"]',
+            'CAP_SP ~~~ CAP_T',
+            'CAP_SP ~~~ CAP_L',
             'A2 --> MOM2',
             'FAM2 -.->|"output goes nowhere"| FAM2',
             'end',
             'subgraph ORD["`***Ordinary person recognition***`"]',
+            'ORD_SP[" "]',
             'subgraph ORD_T["Temporal lobe processing"]',
             'A1["α is A"]',
             'end',
@@ -92,24 +96,29 @@ const protocols = [
             'FAM1["PLUS <b>☰</b><br/>(feeling of familiarity)"]',
             'end',
             'MOM1["α is <b>☰</b> Mom"]',
+            'ORD_SP ~~~ ORD_T',
+            'ORD_SP ~~~ ORD_L',
             'A1 --> MOM1',
             'FAM1 --> MOM1',
-            'end'
+            'end',
+            'classDef spacerCls fill:transparent,stroke:none,color:transparent;',
+            'class CAP_SP spacerCls',
+            'class ORD_SP spacerCls'
         ],
         bookText: "A side-by-side comparison of abbreviated schemata for person recognition. In ordinary recognition (left), a face is processed in two places in the brain: the lookup that yields \"α is A\" and the limbic system's feeling of familiarity (the I Ching trigram ☰ is a placeholder for that feeling). When the two outputs are joined, the person recognises Mom. In Capgras (right), the limbic output is inhibited — its output curves back onto itself and goes nowhere — so the reasoning platform is missing a signal. The resulting output: \"this person looks exactly like Mom, but isn't Mom.\"",
         walkthrough: [
             {
-                shown: [11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21],
+                shown: [14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 30],
                 title: "Ordinary recognition",
                 note: "Two independent products are joined: the face-lookup <strong>α is A</strong> and the limbic <em>feeling of familiarity</em> (☰). When both arrive, they combine into recognition — <strong>α is Mom</strong>."
             },
             {
-                shown: [0, 1, 2, 3, 7, 8, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21],
+                shown: [0, 1, 2, 3, 4, 8, 9, 11, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30],
                 title: "Capgras: the lookup still works",
                 note: "On the Capgras side the face-lookup is intact: the visual system still computes <strong>α is A</strong>, &lsquo;looks like Mom.&rsquo; Nothing is wrong with recognition of the <em>features</em>."
             },
             {
-                shown: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21],
+                shown: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30],
                 title: "But familiarity is inhibited",
                 note: "The limbic familiarity signal is suppressed — its output <em>curves back on itself</em> and never reaches the join. Missing that signal, the platform concludes <strong>looks exactly like Mom, but isn't Mom</strong>. A hardware fault, read by the sufferer as a fact about the world."
             }
