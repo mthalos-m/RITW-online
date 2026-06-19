@@ -131,7 +131,7 @@
                             ? `<img src="${escHtml(protocol.image)}" alt="Original figure for ${escHtml(protocol.title)}">`
                             : `<div class="preview-empty">No original figure available.</div>` }
                     </div>
-                    <figcaption>${escHtml(protocol.description || protocol.title)}</figcaption>
+                    ${ protocol.hideFigCaption ? "" : `<figcaption>${escHtml(protocol.description || protocol.title)}</figcaption>` }
                 </figure>
             </section>` : "" }
 

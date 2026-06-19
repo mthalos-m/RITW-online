@@ -67,6 +67,7 @@ const protocols = [
         page: 63,
         image: "assets/protocols/Figure_1.2_Capgras_inference_abbreviated_schemata.png",
         description: "Abbreviated schemata for the Capgras inference.",
+        hideFigCaption: true,
         featured: true,
         body: "",
 
