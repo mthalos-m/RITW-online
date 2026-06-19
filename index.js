@@ -18,8 +18,7 @@
 
     function chapterShort(num) {
         if (num === 0) return "Contributed";
-        const ch = (typeof chapters !== "undefined") && chapters[num];
-        return ch ? ch.label : `Ch. ${num}`;
+        return `Chapter ${num}`;
     }
 
     /* keep protocols ordered: book chapters first, contributed (0) last */
