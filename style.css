@@ -572,6 +572,23 @@ body {
     padding: 4rem 1rem;
 }
 
+/* empty-state for the always-visible contributed section */
+.contributed-empty {
+    grid-column: 1 / -1;
+    max-width: 58ch;
+    margin: 0.4rem auto 0;
+    padding: 2.2rem 1.8rem;
+    text-align: center;
+    background: var(--card);
+    border: 1px dashed var(--rule-light);
+    border-radius: 16px;
+    color: var(--ink-soft);
+    font-style: italic;
+    font-size: 1.08rem;
+    line-height: 1.65;
+}
+.contributed-empty strong { font-style: normal; font-weight: 600; color: var(--ink); }
+
 /* ============================================================
    MODAL — Add / Edit Protocol
    ============================================================ */

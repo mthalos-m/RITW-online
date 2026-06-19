@@ -44,7 +44,8 @@
 
     /* ---------- contents / chapter quick-nav ---------- */
     function buildChapterNav() {
-        const present = [...new Set(protocols.map(p => p.chapter))].sort((a, b) => {
+        /* always include the contributed section (0) so it has a jump target */
+        const present = [...new Set([...protocols.map(p => p.chapter), 0])].sort((a, b) => {
             const ca = a === 0 ? 99 : a, cb = b === 0 ? 99 : b;
             return ca - cb;
         });
@@ -66,6 +67,7 @@
         }
 
         let currentChapter = null;
+        let contributedShown = false;
 
         list.forEach(protocol => {
             const ch = protocol.chapter;
@@ -79,8 +81,24 @@
                 gallery.appendChild(heading);
             }
 
+            if (ch === 0) contributedShown = true;
             gallery.appendChild(buildCard(protocol));
         });
+
+        /* keep the contributed section always visible (with an inviting empty
+           state) in the default view, even before anyone has contributed */
+        if (!contributedShown && !searchInput.value.trim()) {
+            const heading = document.createElement("h2");
+            heading.className = "chapter-heading";
+            heading.id = "chapter-0";
+            heading.textContent = chapterLabel(0);
+            gallery.appendChild(heading);
+
+            const invite = document.createElement("div");
+            invite.className = "contributed-empty";
+            invite.innerHTML = `<strong>This shelf is open.</strong> Reader-contributed protocols will appear here, alongside the book&rsquo;s — be the first to add one below.`;
+            gallery.appendChild(invite);
+        }
     }
 
     function buildCard(protocol) {
