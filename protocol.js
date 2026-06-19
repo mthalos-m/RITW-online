@@ -131,7 +131,7 @@
                             ? `<img src="${escHtml(protocol.image)}" alt="Original figure for ${escHtml(protocol.title)}">`
                             : `<div class="preview-empty">No original figure available.</div>` }
                     </div>
-                    ${ protocol.hideFigCaption ? "" : `<figcaption>${escHtml(protocol.description || protocol.title)}</figcaption>` }
+                    ${ protocol.hideFigCaption ? "" : `<figcaption>${boldTrigram(escHtml(protocol.description || protocol.title))}</figcaption>` }
                 </figure>
             </section>` : "" }
 
@@ -139,7 +139,7 @@
             ${ protocol.bookText ? `
             <section class="detail-section">
                 <h2 class="section-title">From the book</h2>
-                <blockquote class="book-quote">${escHtml(protocol.bookText)}</blockquote>
+                <blockquote class="book-quote">${boldTrigram(escHtml(protocol.bookText))}</blockquote>
             </section>` : (protocol.userContributed && protocol.body ? `
             <section class="detail-section">
                 <h2 class="section-title">Notes</h2>
@@ -245,7 +245,7 @@
         function show() {
             const step = steps[i];
             titleEl.innerHTML = escHtml(step.title || `Step ${i + 1}`);
-            noteEl.innerHTML  = step.note || "";
+            noteEl.innerHTML  = boldTrigram(step.note || "");
             counter.textContent = `${i + 1} / ${steps.length}`;
 
             const shownSet = new Set(step.shown);
@@ -530,5 +530,10 @@
         return String(str)
             .replace(/&/g, "&amp;").replace(/</g, "&lt;")
             .replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+    }
+
+    // The I Ching trigram ☰ is always rendered bold, throughout the site.
+    function boldTrigram(html) {
+        return String(html).replace(/☰/g, "<strong>☰</strong>");
     }
 })();

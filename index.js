@@ -130,7 +130,7 @@
             </div>
             <h2>${escHtml(protocol.title)}</h2>
             <figure class="card-figure">${imgTag}</figure>
-            <p class="card-caption">${escHtml(protocol.description || "")}</p>
+            <p class="card-caption">${boldTrigram(escHtml(protocol.description || ""))}</p>
             <div class="card-footer">
                 ${footerLeft}
                 <a class="card-link" href="protocol.html?id=${encodeURIComponent(protocol.id)}">
@@ -188,6 +188,11 @@
         return String(str)
             .replace(/&/g, "&amp;").replace(/</g, "&lt;")
             .replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+    }
+
+    // The I Ching trigram ☰ is always rendered bold, throughout the site.
+    function boldTrigram(html) {
+        return String(html).replace(/☰/g, "<strong>☰</strong>");
     }
 
     /* ---------- load approved contributions from Supabase ---------- */
