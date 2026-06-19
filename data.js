@@ -81,7 +81,7 @@ const protocols = [
             'FAM2["Capgras: familiarity signal inhibited"]',
             'MOM2["α looks exactly like Mom, but isn\'t Mom"]',
             'A2 --> MOM2',
-            'FAM2 -.->|"output goes nowhere"| MOM2'
+            'FAM2 -.->|"output goes nowhere"| FAM2'
         ],
         bookText: "A side-by-side comparison of abbreviated schemata for person recognition. In ordinary recognition (left), a face is processed in two places in the brain: the lookup that yields \"α is A\" and the limbic system's feeling of familiarity (the I Ching trigram ☰ is a placeholder for that feeling). When the two outputs are joined, the person recognises Mom. In Capgras (right), the limbic output is inhibited — its output curves back onto itself and goes nowhere — so the reasoning platform is missing a signal. The resulting output: \"this person looks exactly like Mom, but isn't Mom.\"",
         walkthrough: [
