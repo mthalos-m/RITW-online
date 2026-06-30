@@ -228,7 +228,7 @@ const protocols = [
             'P2 -->|"conflict detected"| SR',
             'SR -.->|"reset to earlier state; activation fades"| EYE'
         ],
-        bookText: "Our standard way of representing protocols is a three-column affair. The box containing the eye icon indicates that a search or, more generally, a monitoring process is focused on the process proceeding in the centre. When a conflict is detected — particularly if it is available to consciousness, as marked by the bolded notices P and ¬P — a directive is injected into the process to halt, to suspend activities (including the normal output to other processes), and to reset to an earlier state, higher up in the protocol, for reprocessing. The dark arrow indicates intervention from another process.",
+        bookText: "The box containing the eye icon indicates that a search or, more generally, a monitoring process is focused on the process proceeding in the centre. When a conflict is detected — particularly if it is available to consciousness, as marked by the bolded notices P and ¬P — a directive is injected into the process to halt, to suspend activities (including the normal output to other processes), and to reset to an earlier state, higher up in the protocol, for reprocessing. The dark arrow indicates intervention from another process.",
         walkthrough: [
             {
                 shown: [0],
